@@ -1,0 +1,456 @@
+<!-- =========================
+     AFFINITY REALTY HERO SECTION
+========================= -->
+
+<style>
+  :root {
+    --ar-navy: #0b1f35;
+    --ar-navy-light: #142d47;
+    --ar-blue: #2464b7;
+    --ar-blue-dark: #174c91;
+    --ar-white: #ffffff;
+    --ar-text: #dbe5ef;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .ar-hero {
+    position: relative;
+    min-height: 760px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    /* CHANGE YOUR BACKGROUND IMAGE HERE */
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(8, 28, 49, 0.98) 0%,
+        rgba(8, 28, 49, 0.94) 25%,
+        rgba(8, 28, 49, 0.70) 48%,
+        rgba(8, 28, 49, 0.20) 72%,
+        rgba(8, 28, 49, 0.05) 100%
+      ),
+      url("http://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/ChatGPT-Image-Aug-18-2026-10_16_33-AM_11zon.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .ar-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.20) 100%
+    );
+    pointer-events: none;
+  }
+
+  .ar-hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 90px 7% 70px;
+  }
+
+  .ar-hero-content {
+    max-width: 760px;
+  }
+
+  /* Small Heading */
+  .ar-hero-tag {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+
+    color: #63a0ee;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 3px;
+  }
+
+  .ar-hero-tag::after {
+    content: "";
+    width: 58px;
+    height: 4px;
+    background: #4285dd;
+  }
+
+  /* Main Heading */
+  .ar-hero h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(10px, 6vw, 70px);
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -3px;
+  }
+
+  .ar-hero h1 .ar-blue-text {
+    display: block;
+    color: #2f73cf;
+  }
+
+  /* Description */
+  .ar-hero-description {
+    max-width: 620px;
+    margin: 25px 0 34px;
+
+    color: #d9e2eb;
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* Buttons */
+  .ar-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .ar-btn {
+    min-height: 58px;
+    padding: 0 26px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    border-radius: 10px;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    transition: 0.3s ease;
+  }
+
+  .ar-btn-primary {
+    color: #ffffff;
+    background: linear-gradient(135deg, #3178d2, #1d57a2);
+    border: 1px solid #3178d2;
+
+    box-shadow: 0 10px 30px rgba(31, 91, 170, 0.25);
+  }
+
+  .ar-btn-primary:hover {
+    transform: translateY(-3px);
+    background: #174c91;
+  }
+
+  .ar-btn-outline {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+  }
+
+  .ar-btn-outline:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .ar-btn-arrow {
+    font-size: 25px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .ar-btn:hover .ar-btn-arrow {
+    transform: translateX(5px);
+  }
+
+  /* Stats Box */
+  .ar-hero-stats {
+    width: 100%;
+    max-width: 830px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-top: 25px;
+    padding: 22px 18px;
+
+    background: rgba(16, 39, 64, 0.86);
+    border: 1px solid rgba(105, 154, 207, 0.45);
+    border-radius: 15px;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .ar-stat {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 0 20px;
+  }
+
+  .ar-stat:not(:last-child) {
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .ar-stat-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+    background: linear-gradient(135deg, #286dc3, #174a89);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    font-size: 25px;
+  }
+
+  .ar-stat-number {
+    display: block;
+
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 800;
+
+    margin-bottom: 7px;
+  }
+
+  .ar-stat-label {
+    display: block;
+
+    color: #d3deea;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  /* Scroll Indicator */
+  .ar-hero-scroll {
+    position: absolute;
+    right: 7%;
+    bottom: 35px;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #ffffff;
+    font-size: 13px;
+    letter-spacing: 1px;
+    opacity: 0.8;
+  }
+
+  .ar-scroll-line {
+    width: 55px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  /* =========================
+     TABLET
+  ========================= */
+  @media (max-width: 1024px) {
+    .ar-hero {
+      min-height: 720px;
+    }
+
+    .ar-hero-container {
+      padding: 80px 6% 60px;
+    }
+
+    .ar-hero-stats {
+      max-width: 720px;
+    }
+
+    .ar-stat {
+      padding: 0 12px;
+    }
+
+    .ar-stat-number {
+      font-size: 24px;
+    }
+  }
+
+  /* =========================
+     MOBILE
+  ========================= */
+  @media (max-width: 768px) {
+    .ar-hero {
+      min-height: auto;
+
+      background-image:
+        linear-gradient(
+          180deg,
+          rgba(8, 28, 49, 0.96) 0%,
+          rgba(8, 28, 49, 0.88) 55%,
+          rgba(8, 28, 49, 0.72) 100%
+        ),
+        url("YOUR-IMAGE-URL-HERE.jpg");
+
+      background-position: center;
+    }
+
+    .ar-hero-container {
+      padding: 80px 22px 55px;
+    }
+
+    .ar-hero-tag {
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .ar-hero h1 {
+      font-size: clamp(42px, 12vw, 62px);
+      letter-spacing: -2px;
+    }
+
+    .ar-hero-description {
+      font-size: 16px;
+      margin: 20px 0 28px;
+    }
+
+    .ar-hero-actions {
+      gap: 12px;
+    }
+
+    .ar-btn {
+      width: 100%;
+      min-height: 55px;
+    }
+
+    .ar-hero-stats {
+      grid-template-columns: 1fr;
+      gap: 18px;
+
+      padding: 22px;
+    }
+
+    .ar-stat {
+      padding: 0;
+    }
+
+    .ar-stat:not(:last-child) {
+      padding-bottom: 18px;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .ar-hero-scroll {
+      display: none;
+    }
+  }
+</style>
+
+
+<!-- HERO SECTION -->
+<section class="ar-hero" id="home">
+
+  <div class="ar-hero-container">
+
+    <div class="ar-hero-content">
+
+      <!-- Small Label -->
+      <div class="ar-hero-tag">
+        PREMIUM REAL ESTATE
+      </div>
+
+
+      <!-- Main Heading -->
+      <h1>
+        Find Your<br>
+        Perfect Space.
+        <span class="ar-blue-text">
+          Build Your<br>
+          Better Future.
+        </span>
+      </h1>
+
+
+      <!-- Description -->
+      <p class="ar-hero-description">
+        Thoughtfully planned properties built with quality,
+        transparency, and long-term value in mind. Let's build
+        your tomorrow, today.
+      </p>
+
+
+      <!-- Buttons -->
+      <div class="ar-hero-actions">
+
+        <a href="#projects" class="ar-btn ar-btn-primary">
+          Explore Projects
+          <span class="ar-btn-arrow">→</span>
+        </a>
+
+        <a href="https://affinityrealty.orgscale.in/contact/" class="ar-btn ar-btn-outline">
+          Talk to Our Experts
+          <span class="ar-btn-arrow">→</span>
+        </a>
+
+      </div>
+
+
+      <!-- Statistics -->
+      <div class="ar-hero-stats">
+
+        <div class="ar-stat">
+          <div class="ar-stat-icon">♧</div>
+
+          <div>
+            <span class="ar-stat-number">500+</span>
+            <span class="ar-stat-label">Happy Families</span>
+          </div>
+        </div>
+
+
+        <div class="ar-stat">
+          <div class="ar-stat-icon">♢</div>
+
+          <div>
+            <span class="ar-stat-number">10+</span>
+            <span class="ar-stat-label">Years of Trust</span>
+          </div>
+        </div>
+
+
+        <div class="ar-stat">
+          <div class="ar-stat-icon">▥</div>
+
+          <div>
+            <span class="ar-stat-number">1000+</span>
+            <span class="ar-stat-label">Plots Delivered</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Optional Scroll Text -->
+  <div class="ar-hero-scroll">
+    <span>SCROLL TO EXPLORE</span>
+    <span class="ar-scroll-line"></span>
+  </div>
+
+</section>

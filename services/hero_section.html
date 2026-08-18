@@ -1,0 +1,398 @@
+<!-- ═══════════════════════════════════════
+     AFFINITY REALTY - NEW HERO SECTION
+════════════════════════════════════════ -->
+
+<style>
+  .ar-hero {
+    position: relative;
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(247, 250, 253, 0.97) 0%,
+        rgba(247, 250, 253, 0.93) 35%,
+        rgba(247, 250, 253, 0.48) 58%,
+        rgba(13, 40, 70, 0.12) 100%
+      ),
+      url('https://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/background_11zon.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Decorative elements */
+  .ar-hero::before {
+    content: '';
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border: 1px solid rgba(28, 94, 168, 0.12);
+    border-radius: 50%;
+    right: -160px;
+    top: -230px;
+  }
+
+  .ar-hero::after {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 1px solid rgba(28, 94, 168, 0.10);
+    border-radius: 50%;
+    right: 80px;
+    bottom: -180px;
+  }
+
+  .ar-hero-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 90px 32px 80px;
+  }
+
+  .ar-hero-content {
+    max-width: 650px;
+  }
+
+  .ar-hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    margin-bottom: 22px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.78);
+    border: 1px solid rgba(28, 94, 168, 0.15);
+    color: #1c5ea8;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: 0 8px 25px rgba(13,40,70,0.06);
+  }
+
+  .ar-hero-tag::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1c5ea8;
+    box-shadow: 0 0 0 5px rgba(28,94,168,0.10);
+  }
+
+  .ar-hero h1 {
+    margin: 0;
+    color: #0d2846;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    line-height: 1.08;
+    font-weight: 850;
+    letter-spacing: -0.035em;
+  }
+
+  .ar-hero h1 .ar-highlight {
+    display: block;
+    background: linear-gradient(135deg, #1c5ea8, #0d2846);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ar-hero-desc {
+    max-width: 570px;
+    margin: 24px 0 0;
+    color: #526273;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .ar-hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 30px;
+  }
+
+  .ar-primary-btn,
+  .ar-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 24px;
+    border-radius: 10px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all .25s ease;
+  }
+
+  .ar-primary-btn {
+    color: #fff;
+    background: linear-gradient(135deg, #1c5ea8, #0d4b88);
+    box-shadow: 0 12px 28px rgba(28,94,168,0.25);
+  }
+
+  .ar-primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 35px rgba(28,94,168,0.32);
+  }
+
+  .ar-secondary-btn {
+    color: #0d2846;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(13,40,70,0.14);
+  }
+
+  .ar-secondary-btn:hover {
+    background: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(13,40,70,0.10);
+  }
+
+  .ar-primary-btn svg,
+  .ar-secondary-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform .25s ease;
+  }
+
+  .ar-primary-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Statistics */
+  .ar-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 650px;
+    margin-top: 48px;
+    background: rgba(255,255,255,0.80);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.85);
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(13,40,70,0.10);
+    overflow: hidden;
+  }
+
+  .ar-stat {
+    position: relative;
+    padding: 20px 24px;
+  }
+
+  .ar-stat:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 22px;
+    bottom: 22px;
+    width: 1px;
+    background: #dbe4ed;
+  }
+
+  .ar-stat-number {
+    display: block;
+    color: #0d2846;
+    font-size: 1.5rem;
+    font-weight: 850;
+    line-height: 1;
+  }
+
+  .ar-stat-label {
+    display: block;
+    margin-top: 7px;
+    color: #647384;
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Bottom scroll indicator */
+  .ar-scroll-line {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 1px;
+    height: 42px;
+    background: rgba(13,40,70,0.18);
+    overflow: hidden;
+  }
+
+  .ar-scroll-line span {
+    display: block;
+    width: 100%;
+    height: 18px;
+    background: #1c5ea8;
+    animation: arScroll 2s infinite ease-in-out;
+  }
+
+  @keyframes arScroll {
+    0% {
+      transform: translateY(-20px);
+    }
+
+    100% {
+      transform: translateY(45px);
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1000px) {
+    .ar-hero {
+      min-height: 640px;
+      background-position: 62% center;
+    }
+
+    .ar-hero-wrap {
+      padding-top: 80px;
+      padding-bottom: 75px;
+    }
+
+    .ar-hero-content {
+      max-width: 590px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 760px) {
+    .ar-hero {
+      min-height: auto;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(247,250,253,0.96) 0%,
+          rgba(247,250,253,0.91) 60%,
+          rgba(247,250,253,0.72) 100%
+        ),
+        url('https://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/background_11zon.jpg');
+      background-size: cover;
+      background-position: 65% center;
+    }
+
+    .ar-hero-wrap {
+      padding: 70px 20px 65px;
+    }
+
+    .ar-hero h1 {
+      font-size: 2.7rem;
+    }
+
+    .ar-hero-desc {
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+
+    .ar-hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .ar-primary-btn,
+    .ar-secondary-btn {
+      width: 100%;
+    }
+
+    .ar-hero-stats {
+      grid-template-columns: 1fr;
+      margin-top: 35px;
+    }
+
+    .ar-stat {
+      padding: 17px 20px;
+    }
+
+    .ar-stat:not(:last-child)::after {
+      right: 20px;
+      left: 20px;
+      top: auto;
+      bottom: 0;
+      width: auto;
+      height: 1px;
+    }
+
+    .ar-scroll-line {
+      display: none;
+    }
+  }
+</style>
+
+
+<!-- HERO SECTION -->
+<section class="ar-hero" id="home">
+
+  <div class="ar-hero-wrap">
+
+    <div class="ar-hero-content">
+
+      <div class="ar-hero-tag">
+        Affinity Realty
+      </div>
+
+      <h1>
+        Building Spaces.
+        <span class="ar-highlight">Creating Futures.</span>
+      </h1>
+
+      <p class="ar-hero-desc">
+        From strategic land development to modern residential and commercial
+        spaces, we turn opportunities into places built for lasting value.
+      </p>
+
+      <div class="ar-hero-actions">
+
+        <a href="#services" class="ar-primary-btn">
+          Explore Services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14"/>
+            <path d="M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+
+        <a href="https://affinityrealty.orgscale.in/contact/" class="ar-secondary-btn">
+          Talk to Our Experts
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14"/>
+            <path d="M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+
+      </div>
+
+      <div class="ar-hero-stats">
+
+        <div class="ar-stat">
+          <span class="ar-stat-number">20+</span>
+          <span class="ar-stat-label">Projects Delivered</span>
+        </div>
+
+        <div class="ar-stat">
+          <span class="ar-stat-number">1,000+</span>
+          <span class="ar-stat-label">Happy Customers</span>
+        </div>
+
+        <div class="ar-stat">
+          <span class="ar-stat-number">35+</span>
+          <span class="ar-stat-label">Years of Experience</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="ar-scroll-line">
+    <span></span>
+  </div>
+
+</section>

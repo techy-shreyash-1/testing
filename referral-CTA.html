@@ -1,0 +1,271 @@
+<!-- ════ FINAL CTA SECTION ════ -->
+<style>
+  .ref-final-cta {
+    position: relative;
+    overflow: hidden;
+    padding: 85px 20px;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(60, 135, 210, .20), transparent 32%),
+      radial-gradient(circle at 90% 80%, rgba(46, 112, 181, .18), transparent 30%),
+      linear-gradient(135deg, #0b2038 0%, #12395f 55%, #1d5c94 100%);
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  }
+
+  .ref-final-cta::before,
+  .ref-final-cta::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .ref-final-cta::before {
+    width: 420px;
+    height: 420px;
+    top: -260px;
+    right: -120px;
+  }
+
+  .ref-final-cta::after {
+    width: 330px;
+    height: 330px;
+    bottom: -230px;
+    left: -100px;
+  }
+
+  .ref-final-wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .ref-final-box {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 55px;
+    align-items: center;
+    padding: 55px 60px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 24px;
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 25px 60px rgba(0,0,0,.18);
+  }
+
+  .ref-final-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    margin-bottom: 18px;
+    border-radius: 30px;
+    color: #b9dcff;
+    background: rgba(74, 145, 214, .14);
+    border: 1px solid rgba(139, 193, 241, .18);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .ref-final-tag span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #76b9f2;
+  }
+
+  .ref-final-content h2 {
+    margin: 0 0 16px;
+    color: #fff;
+    font-size: clamp(2rem, 3vw, 3.1rem);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -.03em;
+  }
+
+  .ref-final-content h2 strong {
+    color: #71b7f4;
+    font-weight: 800;
+  }
+
+  .ref-final-content p {
+    max-width: 650px;
+    margin: 0;
+    color: rgba(255,255,255,.72);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .ref-final-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .ref-final-btn {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 0 20px 0 23px;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: .95rem;
+    font-weight: 700;
+    transition: all .25s ease;
+  }
+
+  .ref-final-btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #2f78bd, #1c5ea8);
+    box-shadow: 0 12px 28px rgba(15, 74, 132, .35);
+  }
+
+  .ref-final-btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 35px rgba(15, 74, 132, .48);
+  }
+
+  .ref-final-btn-secondary {
+    color: #fff;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.16);
+  }
+
+  .ref-final-btn-secondary:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,.14);
+    border-color: rgba(255,255,255,.28);
+  }
+
+  .ref-final-btn-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,.12);
+    transition: transform .25s ease;
+  }
+
+  .ref-final-btn:hover .ref-final-btn-icon {
+    transform: translateX(4px);
+  }
+
+  .ref-final-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  @media (max-width: 850px) {
+    .ref-final-cta {
+      padding: 60px 20px;
+    }
+
+    .ref-final-box {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 38px 30px;
+    }
+
+    .ref-final-actions {
+      flex-direction: row;
+    }
+
+    .ref-final-btn {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ref-final-cta {
+      padding: 45px 16px;
+    }
+
+    .ref-final-box {
+      padding: 32px 22px;
+      border-radius: 18px;
+    }
+
+    .ref-final-content h2 {
+      font-size: 2rem;
+    }
+
+    .ref-final-actions {
+      flex-direction: column;
+    }
+
+    .ref-final-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+
+<section class="ref-final-cta">
+  <div class="ref-final-wrap">
+
+    <div class="ref-final-box">
+
+      <!-- Left Content -->
+      <div class="ref-final-content">
+
+        <div class="ref-final-tag">
+          <span></span>
+          Affinity Realty
+        </div>
+
+        <h2>
+          Let's Build Your <strong>Future Together.</strong>
+        </h2>
+
+        <p>
+          Whether you are exploring new opportunities, planning your next
+          investment, or want to know more about Affinity Realty, our team
+          is here to guide you at every step.
+        </p>
+
+      </div>
+
+
+      <!-- Right Buttons -->
+      <div class="ref-final-actions">
+
+        <a href="/about/" class="ref-final-btn ref-final-btn-primary">
+          <span>Discover Affinity Realty</span>
+
+          <span class="ref-final-btn-icon">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </span>
+        </a>
+
+
+        <a href="/contact/" class="ref-final-btn ref-final-btn-secondary">
+          <span>Talk to Our Experts</span>
+
+          <span class="ref-final-btn-icon">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>

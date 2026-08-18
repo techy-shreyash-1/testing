@@ -1,0 +1,684 @@
+<!-- ════ SECTION 6: Gallery ════ -->
+<style>
+  .gal-section {
+    padding: 60px 0 0;
+    background: linear-gradient(180deg, #ffffff 0%, #eef5fc 35%, #dcebf8 100%);
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  }
+  .gal-wrap {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .gal-eyebrow {
+    display: inline-block;
+    color: #1c5ea8;
+    background: #eaf2fb;
+    font-weight: 700;
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  #gal-root {
+    font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    color: #1a2233;
+  }
+  #gal-root *, #gal-root *::before, #gal-root *::after {
+    box-sizing: border-box;
+  }
+  #gal-root .gal-outer {
+    width: 100%;
+    padding: 0.5rem 36px 3rem;
+  }
+  #gal-root .gal-inner {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* ---- Header card ---- */
+  #gal-root .gal-header-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e6ecf5;
+    border-radius: 16px;
+    padding: 0;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 12px 32px rgba(28,94,168,0.10), 0 2px 8px rgba(10,31,61,0.05);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+  }
+  #gal-root .gal-header-card::after {
+    content: "";
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(63,142,224,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #gal-root .gal-header-accent {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    background: linear-gradient(90deg, #1c5ea8 0%, #3f8ee0 50%, #7ab6ef 100%);
+  }
+  #gal-root .gal-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0.95rem 1.3rem;
+    position: relative;
+  }
+  #gal-root .gal-header-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #1c5ea8, #3f8ee0);
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 14px rgba(28,94,168,0.3);
+  }
+  #gal-root .gal-header-icon svg {
+    width: 19px; height: 19px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 1.9;
+  }
+  #gal-root .gal-header-text { flex: 1; min-width: 0; text-align: left; }
+  #gal-root .gal-header-text h1 {
+    margin: 0 0 0.15rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0a1f3d;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #gal-root .gal-header-text .gal-tagline {
+    margin: 0 0 0.15rem;
+    padding-left: 0.55rem;
+    border-left: 2px solid #cfe3f7;
+    color: #45536b;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #gal-root .gal-header-text p {
+    margin: 0;
+    padding-left: 0.55rem;
+    color: #1c5ea8;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  #gal-root .gal-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.95rem;
+    background: linear-gradient(135deg, #1c5ea8, #3f8ee0);
+    color: #ffffff;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 6px 14px rgba(28,94,168,0.28);
+    flex-shrink: 0;
+  }
+  #gal-root .gal-count-badge svg {
+    width: 12px; height: 12px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ---- Toolbar ---- */
+  #gal-root .gal-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.4rem;
+    background: #ffffff;
+    border: 1px solid #e6ecf5;
+    border-radius: 16px;
+    padding: 0.7rem 0.9rem;
+    box-shadow: 0 4px 16px rgba(10,31,61,0.05);
+  }
+  #gal-root .gal-toolbar-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  #gal-root .gal-size-btns {
+    display: flex;
+    gap: 0.25rem;
+    background: #eef5fc;
+    padding: 0.3rem;
+    border-radius: 999px;
+  }
+  #gal-root .gal-size-btn {
+    padding: 0.44rem 1rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #6b7891;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  #gal-root .gal-size-btn:hover {
+    color: #1c5ea8;
+  }
+  #gal-root .gal-size-btn.active {
+    background: linear-gradient(135deg, #1c5ea8, #3f8ee0);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(28,94,168,0.35);
+  }
+
+  /* ---- Grid + tiles ---- */
+  #gal-root .gal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.15rem;
+    transition: grid-template-columns 0.2s;
+  }
+  #gal-root .gal-grid.size-sm { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  #gal-root .gal-grid.size-md { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  #gal-root .gal-grid.size-lg { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+  #gal-root .gal-item {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #eef5fc;
+    border: 1px solid #e6ecf5;
+    cursor: zoom-in;
+    position: relative;
+    box-shadow: 0 4px 14px rgba(10,31,61,0.07);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
+  }
+  #gal-root .gal-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(28,94,168,0.2);
+    border-color: #7ab6ef;
+  }
+  #gal-root .gal-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  #gal-root .gal-item:hover img {
+    transform: scale(1.08);
+  }
+  #gal-root .gal-item .gal-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,31,61,0.72) 0%, rgba(10,31,61,0.05) 55%, transparent 75%);
+    opacity: 0;
+    transition: opacity 0.25s;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.9rem;
+  }
+  #gal-root .gal-item:hover .gal-overlay { opacity: 1; }
+  #gal-root .gal-overlay span {
+    color: #fff;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255,255,255,0.16);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+  #gal-root .gal-overlay svg {
+    width: 13px; height: 13px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2.2;
+  }
+
+  #gal-root .gal-skeleton {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    border: 1px solid #e6ecf5;
+    background: linear-gradient(90deg, #eef5fc 25%, #dcebf8 50%, #eef5fc 75%);
+    background-size: 200% 100%;
+    animation: gal-shimmer 1.4s infinite;
+  }
+  @keyframes gal-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  #gal-root .gal-notice {
+    background: #ffffff;
+    border: 1px solid #e6ecf5;
+    border-radius: 20px;
+    padding: 3.6rem 1.5rem;
+    text-align: center;
+    color: #6b7891;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    box-shadow: 0 10px 28px rgba(10,31,61,0.06);
+  }
+  #gal-root .gal-notice .notice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.1rem;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #1c5ea8, #3f8ee0);
+    box-shadow: 0 10px 24px rgba(28,94,168,0.3);
+  }
+  #gal-root .gal-notice .notice-icon svg {
+    width: 28px; height: 28px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 1.8;
+  }
+
+  /* ---- Lightbox ---- */
+  #gal-lb {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6,18,38,0.92);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  #gal-lb.open { display: flex; }
+  #gal-lb .lb-img-wrap {
+    position: relative;
+    cursor: default;
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.5);
+    animation: lb-in 0.22s ease;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  @keyframes lb-in {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  #gal-lb .lb-img-wrap img {
+    display: block;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 16px;
+  }
+  #gal-lb .lb-arrow {
+    position: fixed;
+    top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+  }
+  #gal-lb .lb-arrow:hover {
+    background: #1c5ea8;
+    border-color: #3f8ee0;
+    transform: translateY(-50%) scale(1.08);
+  }
+  #gal-lb .lb-prev { left: 1.25rem; }
+  #gal-lb .lb-next { right: 1.25rem; }
+  #gal-lb .lb-close {
+    position: fixed;
+    top: 1.1rem; right: 1.25rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  #gal-lb .lb-close:hover { background: #1c5ea8; transform: scale(1.08); }
+  #gal-lb .lb-counter {
+    position: fixed;
+    bottom: 1.4rem;
+    left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.45rem 1.2rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #gal-root .gal-item,
+    #gal-root .gal-item img,
+    #gal-root .gal-item .gal-overlay,
+    #gal-root .gal-skeleton,
+    #gal-lb .lb-img-wrap {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #gal-root .gal-outer { padding: 0.25rem 20px 2rem; }
+    #gal-root .gal-header-card { border-radius: 14px; }
+    #gal-root .gal-header-inner {
+      padding: 0.85rem 1rem;
+      gap: 0.7rem;
+    }
+    #gal-root .gal-header-text h1 { font-size: 1.05rem; white-space: normal; }
+    #gal-root .gal-header-text .gal-tagline { white-space: normal; }
+    #gal-root .gal-header-icon { width: 38px; height: 38px; border-radius: 10px; }
+    #gal-root .gal-header-icon svg { width: 17px; height: 17px; }
+    #gal-root .gal-toolbar { padding: 0.6rem 0.7rem; border-radius: 14px; }
+    #gal-root .gal-grid,
+    #gal-root .gal-grid.size-md,
+    #gal-root .gal-grid.size-lg {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.65rem;
+    }
+    #gal-root .gal-item { border-radius: 12px; }
+    #gal-lb .lb-arrow { display: none; }
+    .gal-wrap { padding: 0 20px; }
+  }
+</style>
+
+<section class="gal-section" id="gallery">
+  <div class="gal-wrap">
+    <div class="gal-eyebrow">Our Gallery</div>
+  </div>
+
+  <div id="gal-root">
+    <div class="gal-outer">
+      <div class="gal-inner">
+        <div class="gal-header-card" id="gal-header-card">
+          <div class="gal-header-accent"></div>
+          <div class="gal-header-inner">
+            <div class="gal-header-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            </div>
+            <div class="gal-header-text">
+              <h1 id="gal-title">Gallery</h1>
+              <p class="gal-tagline">From vision to reality—explore our developments through the gallery.</p>
+              <p id="gal-sub">Loading images…</p>
+            </div>
+            <span class="gal-count-badge" id="gal-badge" style="display:none">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+              <span id="gal-count">0</span> Photos
+            </span>
+          </div>
+        </div>
+
+        <div class="gal-toolbar" id="gal-toolbar" style="display:none">
+          <div class="gal-toolbar-main">
+            <div class="gal-size-btns">
+              <button class="gal-size-btn" data-size="sm">⊞ Small</button>
+              <button class="gal-size-btn" data-size="md">⊟ Medium</button>
+              <button class="gal-size-btn active" data-size="lg">▣ Large</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="gal-body"></div>
+      </div>
+    </div>
+
+    <div id="gal-lb" role="dialog" aria-label="Image preview" aria-modal="true">
+      <button class="lb-close" id="gal-lb-close" aria-label="Close">✕</button>
+      <button class="lb-arrow lb-prev" id="gal-lb-prev" aria-label="Previous">‹</button>
+      <div class="lb-img-wrap">
+        <img id="gal-lb-img" src="" alt="Preview" />
+      </div>
+      <button class="lb-arrow lb-next" id="gal-lb-next" aria-label="Next">›</button>
+      <div class="lb-counter" id="gal-lb-counter">1 / 1</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var CONFIG = {
+      API_BASE: "https://api2.orgscale.in",
+      PUBLIC_SLUG: "ar-slug"
+    };
+
+    function base() { return CONFIG.API_BASE.replace(/\/$/, ""); }
+    function extraH() { return {}; }
+    function slugFromUrl() {
+      try { return new URLSearchParams(window.location.search).get("slug") || ""; }
+      catch (e) { return ""; }
+    }
+
+    var titleEl   = document.getElementById("gal-title");
+    var subEl     = document.getElementById("gal-sub");
+    var bodyEl    = document.getElementById("gal-body");
+    var badgeEl   = document.getElementById("gal-badge");
+    var countEl   = document.getElementById("gal-count");
+    var toolbarEl = document.getElementById("gal-toolbar");
+    var lb        = document.getElementById("gal-lb");
+    var lbImg     = document.getElementById("gal-lb-img");
+    var lbClose   = document.getElementById("gal-lb-close");
+    var lbPrev    = document.getElementById("gal-lb-prev");
+    var lbNext    = document.getElementById("gal-lb-next");
+    var lbCounter = document.getElementById("gal-lb-counter");
+
+    var allImages  = [];
+    var rawGalleryImages = [];
+    var currentIdx = 0;
+    var currentGrid = null;
+
+    function openLb(idx) {
+      currentIdx = idx;
+      lbImg.src  = allImages[idx].url;
+      lbCounter.textContent = (idx + 1) + " / " + allImages.length;
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLb() {
+      lb.classList.remove("open");
+      lbImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    function prevImg() {
+      currentIdx = (currentIdx - 1 + allImages.length) % allImages.length;
+      lbImg.src  = allImages[currentIdx].url;
+      lbCounter.textContent = (currentIdx + 1) + " / " + allImages.length;
+    }
+
+    function nextImg() {
+      currentIdx = (currentIdx + 1) % allImages.length;
+      lbImg.src  = allImages[currentIdx].url;
+      lbCounter.textContent = (currentIdx + 1) + " / " + allImages.length;
+    }
+
+    lbClose.addEventListener("click", closeLb);
+    lbPrev.addEventListener("click", function(e) { e.stopPropagation(); prevImg(); });
+    lbNext.addEventListener("click", function(e) { e.stopPropagation(); nextImg(); });
+    lb.addEventListener("click", function(e) { if (e.target === lb) closeLb(); });
+
+    document.addEventListener("keydown", function(e) {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") prevImg();
+      if (e.key === "ArrowRight") nextImg();
+    });
+
+    var sizeBtns = document.querySelectorAll(".gal-size-btn");
+    sizeBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        sizeBtns.forEach(function(b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        if (currentGrid) {
+          currentGrid.className = "gal-grid size-" + btn.getAttribute("data-size");
+        }
+      });
+    });
+
+    function showSkeletons(n) {
+      var grid = document.createElement("div");
+      grid.className = "gal-grid size-lg";
+      for (var i = 0; i < (n || 12); i++) {
+        var sk = document.createElement("div");
+        sk.className = "gal-skeleton";
+        grid.appendChild(sk);
+      }
+      bodyEl.innerHTML = "";
+      bodyEl.appendChild(grid);
+    }
+
+    function notice(icon, html) {
+      bodyEl.innerHTML =
+        '<div class="gal-notice">' +
+          '<span class="notice-icon">' + icon + '</span>' +
+          html +
+        '</div>';
+      toolbarEl.style.display = "none";
+      badgeEl.style.display   = "none";
+    }
+
+    function renderGrid(images) {
+      allImages = images;
+      if (!rawGalleryImages.length) {
+        notice("🖼️", "No images have been uploaded to this gallery yet.");
+        subEl.textContent = "";
+        return;
+      }
+
+      if (!images || !images.length) {
+        bodyEl.innerHTML =
+          '<div class="gal-notice">' +
+            '<span class="notice-icon">🔎</span>' +
+            "No photos found." +
+          "</div>";
+        countEl.textContent = String(rawGalleryImages.length);
+        badgeEl.style.display = "inline-flex";
+        toolbarEl.style.display = "flex";
+        subEl.textContent = images.length + " photo" + (images.length !== 1 ? "s" : "");
+        return;
+      }
+
+      countEl.textContent = String(rawGalleryImages.length);
+      badgeEl.style.display = "inline-flex";
+      toolbarEl.style.display = "flex";
+      subEl.textContent =
+        images.length === rawGalleryImages.length
+          ? images.length + " photo" + (images.length !== 1 ? "s" : "") + " in this gallery"
+          : "Showing " + images.length + " of " + rawGalleryImages.length + " photo" + (rawGalleryImages.length !== 1 ? "s" : "");
+
+      var grid = document.createElement("div");
+      grid.className = "gal-grid size-lg";
+      currentGrid = grid;
+
+      images.forEach(function(row, idx) {
+        var item = document.createElement("div");
+        item.className = "gal-item";
+
+        var img = document.createElement("img");
+        img.src = row.url;
+        img.alt = "Gallery photo " + (idx + 1);
+        img.loading = "lazy";
+
+        var overlay = document.createElement("div");
+        overlay.className = "gal-overlay";
+        var sp = document.createElement("span");
+        sp.textContent = "🔍 View";
+        overlay.appendChild(sp);
+
+        item.appendChild(img);
+        item.appendChild(overlay);
+        item.addEventListener("click", function() { openLb(idx); });
+        grid.appendChild(item);
+      });
+
+      bodyEl.innerHTML = "";
+      bodyEl.appendChild(grid);
+    }
+
+    function load() {
+      var slug = slugFromUrl() || (CONFIG.PUBLIC_SLUG || "").trim();
+
+      if (!slug) {
+        titleEl.textContent = "Gallery";
+        subEl.textContent   = "";
+        notice("⚙️", "No gallery slug configured.");
+        return;
+      }
+
+      titleEl.textContent = "Gallery";
+      subEl.textContent   = "Loading…";
+      showSkeletons(12);
+
+      fetch(base() + "/api/public/gallery/" + encodeURIComponent(slug) + "/", { headers: extraH() })
+        .then(function(res) {
+          return res.json().then(function(data) { return { ok: res.ok, data: data }; });
+        })
+        .then(function(out) {
+          if (!out.ok) {
+            subEl.textContent = "";
+            notice("❌", out.data && out.data.detail ? out.data.detail : "Gallery not found.");
+            return;
+          }
+          var d = out.data;
+          titleEl.textContent = d.tenant_name ? d.tenant_name + " — Gallery" : "Gallery";
+          rawGalleryImages = Array.isArray(d.images) ? d.images : [];
+          renderGrid(rawGalleryImages);
+        })
+        .catch(function() {
+          subEl.textContent = "";
+          notice("📡", "Could not connect to the API.");
+        });
+    }
+
+    load();
+  })();
+</script>

@@ -1,0 +1,268 @@
+<!-- ═══════════════════════════════════════
+     UNIVERSAL ABOUT + REFERRAL CTA SECTION
+     Add before Footer on every page
+════════════════════════════════════════ -->
+
+<style>
+  .ar-global-cta {
+    position: relative;
+    overflow: hidden;
+    padding: 75px 20px;
+    background: linear-gradient(135deg, #0d2846 0%, #123b68 55%, #1c5ea8 100%);
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  }
+
+  .ar-global-cta::before {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 50%;
+    top: -240px;
+    left: -100px;
+  }
+
+  .ar-global-cta::after {
+    content: '';
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 50%;
+    bottom: -210px;
+    right: -80px;
+  }
+
+  .ar-global-cta-wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .ar-global-cta-top {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 38px;
+  }
+
+  .ar-global-cta-tag {
+    display: inline-block;
+    padding: 7px 16px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 30px;
+    background: rgba(255,255,255,0.08);
+    color: #dbeeff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ar-global-cta h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .ar-global-cta > p,
+  .ar-global-cta-top p {
+    margin: 16px auto 0;
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .ar-global-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+  .ar-cta-card {
+    position: relative;
+    padding: 32px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform .3s ease, background .3s ease,
+                box-shadow .3s ease;
+  }
+
+  .ar-cta-card:hover {
+    transform: translateY(-7px);
+    background: rgba(255,255,255,0.16);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+  }
+
+  .ar-cta-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.14);
+    color: #ffffff;
+  }
+
+  .ar-cta-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ar-cta-card h3 {
+    margin: 0 0 10px;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 750;
+  }
+
+  .ar-cta-card p {
+    margin: 0;
+    max-width: 460px;
+    color: rgba(255,255,255,0.72);
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+
+  .ar-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 12px 18px;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #0d2846;
+    font-size: 0.88rem;
+    font-weight: 750;
+    text-decoration: none;
+    transition: transform .25s ease, background .25s ease;
+  }
+
+  .ar-cta-link:hover {
+    transform: translateX(5px);
+    background: #eaf3fc;
+  }
+
+  .ar-cta-link svg {
+    width: 17px;
+    height: 17px;
+    transition: transform .25s ease;
+  }
+
+  .ar-cta-link:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Mobile */
+  @media (max-width: 760px) {
+    .ar-global-cta {
+      padding: 55px 20px;
+    }
+
+    .ar-global-cta-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ar-cta-card {
+      padding: 26px 22px;
+    }
+
+    .ar-global-cta-top {
+      margin-bottom: 28px;
+    }
+  }
+</style>
+
+
+<section class="ar-global-cta">
+
+  <div class="ar-global-cta-wrap">
+
+    <div class="ar-global-cta-top">
+      <div class="ar-global-cta-tag">Let's Connect</div>
+
+      <h2>Discover More With Affinity Realty</h2>
+
+      <p>
+        Learn about our journey, values and expertise, or grow with us through
+        our referral program.
+      </p>
+    </div>
+
+
+    <div class="ar-global-cta-grid">
+
+      <!-- ABOUT US CARD -->
+      <div class="ar-cta-card">
+
+        <div class="ar-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6"/>
+          </svg>
+        </div>
+
+        <h3>Get to Know Affinity Realty</h3>
+
+        <p>
+          Discover our story, experience, vision and commitment to creating
+          valuable real estate opportunities.
+        </p>
+
+        <!-- Change URL if needed -->
+        <a href="https://affinityrealty.orgscale.in/contact/" class="ar-cta-link">
+          Explore About Us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14"/>
+            <path d="M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+
+      </div>
+
+
+      <!-- REFERRAL CARD -->
+      <div class="ar-cta-card">
+
+        <div class="ar-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="8" r="3"/>
+            <circle cx="17" cy="10" r="2.5"/>
+            <path d="M3 21c.5-4 2.6-6 6-6 3.3 0 5.4 2 6 6"/>
+            <path d="M15 16c3 0 5 1.6 6 5"/>
+          </svg>
+        </div>
+
+        <h3>Refer. Connect. Grow.</h3>
+
+        <p>
+          Share opportunities with your network and become part of the Affinity
+          Realty referral program.
+        </p>
+
+        <!-- Change URL if needed -->
+        <a href="https://affinityrealty.orgscale.in/referral/" class="ar-cta-link">
+          Explore Referral Program
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14"/>
+            <path d="M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Affinity Realty | Admin Panel</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1c5ea8;
+      --primary-dark: #0d2846;
+      --primary-light: #eaf2fb;
+      --bg: #f4f7fb;
+      --white: #ffffff;
+      --text: #0d2846;
+      --muted: #657386;
+      --border: #e1e8f0;
+      --success: #168354;
+      --danger: #d64545;
+      --warning: #b7791f;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ================================
+       LAYOUT
+    ================================= */
+
+    .admin-layout {
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ================================
+       SIDEBAR
+    ================================= */
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d2846 0%, #163d67 100%);
+      color: #fff;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      padding: 25px 18px;
+      z-index: 100;
+    }
+
+    .brand {
+      padding: 5px 10px 25px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 25px;
+    }
+
+    .brand h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .brand p {
+      margin-top: 7px;
+      font-size: 12px;
+      color: #b9cde0;
+      line-height: 1.5;
+    }
+
+    .admin-label {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 6px 11px;
+      background: rgba(255,255,255,.1);
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .menu button {
+      width: 100%;
+      padding: 13px 14px;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: #bdd0e1;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: .25s;
+    }
+
+    .menu button:hover,
+    .menu button.active {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+    }
+
+    /* ================================
+       MAIN
+    ================================= */
+
+    .main {
+      width: calc(100% - 250px);
+      margin-left: 250px;
+      padding: 30px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .topbar h1 {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .topbar p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .admin-profile {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* ================================
+       STATS
+    ================================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(13,40,70,.06);
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .stat-card h3 {
+      margin-top: 10px;
+      font-size: 29px;
+    }
+
+    .stat-card:nth-child(1) {
+      border-top: 4px solid var(--primary);
+    }
+
+    .stat-card:nth-child(2) {
+      border-top: 4px solid var(--success);
+    }
+
+    .stat-card:nth-child(3) {
+      border-top: 4px solid #e69b28;
+    }
+
+    .stat-card:nth-child(4) {
+      border-top: 4px solid var(--danger);
+    }
+
+    /* ================================
+       PANEL
+    ================================= */
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 25px rgba(13,40,70,.05);
+    }
+
+    .panel-header {
+      margin-bottom: 24px;
+    }
+
+    .panel-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .panel-header p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ================================
+       FORM
+    ================================= */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      font-family: inherit;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(28,94,168,.1);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .booking-options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .radio-box {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+
+    .radio-box input {
+      width: auto;
+    }
+
+    /* ================================
+       BUTTONS
+    ================================= */
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 9px;
+      padding: 11px 17px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #edf2f7;
+      color: var(--text);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-small {
+      padding: 8px 10px;
+      font-size: 11px;
+    }
+
+    /* ================================
+       IMAGE PREVIEW
+    ================================= */
+
+    .image-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .preview-item {
+      height: 110px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .preview-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 26px;
+      height: 26px;
+      border: none;
+      border-radius: 50%;
+      background: var(--danger);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ================================
+       FILTERS
+    ================================= */
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .filters input {
+      max-width: 320px;
+    }
+
+    .filters select {
+      max-width: 200px;
+    }
+
+    /* ================================
+       TABLE
+    ================================= */
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .project-thumb {
+      width: 65px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #edf2f7;
+    }
+
+    .no-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .project-name {
+      display: block;
+      font-weight: 700;
+    }
+
+    .project-location {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .photo-count {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-active {
+      background: #e7f7ef;
+      color: var(--success);
+    }
+
+    .badge-inactive {
+      background: #fff0f0;
+      color: var(--danger);
+    }
+
+    .badge-booking {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .badge-no-booking {
+      background: #fff8e6;
+      color: var(--warning);
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .empty-state {
+      padding: 50px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-state h3 {
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    /* ================================
+       TOAST
+    ================================= */
+
+    .toast {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: .3s;
+      z-index: 1000;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ================================
+       RESPONSIVE
+    ================================= */
+
+    @media (max-width: 1100px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .admin-layout {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .brand {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+      }
+
+      .menu {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .menu button {
+        width: auto;
+        white-space: nowrap;
+      }
+
+      .main {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .topbar h1 {
+        font-size: 23px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .booking-options {
+        flex-direction: column;
+      }
+
+      .filters {
+        flex-direction: column;
+      }
+
+      .filters input,
+      .filters select {
+        max-width: 100%;
+      }
+
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+
+      .form-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <h2>AFFINITY REALTY</h2>
+        <p>Your gateway to a richer life</p>
+        <span class="admin-label">Admin Panel</span>
+      </div>
+
+      <nav class="menu">
+        <button class="active" onclick="scrollToSection('dashboard')">
+          Dashboard
+        </button>
+
+        <button onclick="scrollToSection('addProject')">
+          + Add Project
+        </button>
+
+        <button onclick="scrollToSection('projectsList')">
+          All Projects
+        </button>
+
+        <button onclick="resetForm()">
+          Reset Form
+        </button>
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div>
+          <h1>Project Management</h1>
+          <p>Manage all your real estate projects from one place.</p>
+        </div>
+
+        <div class="admin-profile">
+          Admin
+        </div>
+      </div>
+
+
+      <!-- DASHBOARD -->
+      <section id="dashboard">
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <span>Total Projects</span>
+            <h3 id="totalProjects">0</h3>
+          </div>
+
+          <div class="stat-card">
+            <span>Active Projects</span>
+            <h3 id="activeProjects">0</h3>
+          </div>
+
+          <div class="stat-card">
+            <span>Booking Started</span>
+            <h3 id="bookingProjects">0</h3>
+          </div>
+
+          <div class="stat-card">
+            <span>Inactive Projects</span>
+            <h3 id="inactiveProjects">0</h3>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ADD / EDIT PROJECT -->
+      <section class="panel" id="addProject">
+
+        <div class="panel-header">
+          <h2 id="formTitle">Add New Project</h2>
+          <p>Add complete project details, multiple images and booking information.</p>
+        </div>
+
+        <form id="projectForm">
+
+          <input type="hidden" id="editProjectId">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="projectName">Project Name *</label>
+
+              <input
+                type="text"
+                id="projectName"
+                placeholder="Enter project name"
+                required
+              >
+            </div>
+
+
+            <div class="form-group">
+              <label for="projectLocation">Location *</label>
+
+              <input
+                type="text"
+                id="projectLocation"
+                placeholder="Example: Pune, Maharashtra"
+                required
+              >
+            </div>
+
+
+            <div class="form-group">
+              <label for="startingPrice">Starting Price *</label>
+
+              <input
+                type="number"
+                id="startingPrice"
+                placeholder="Example: 2500000"
+                min="0"
+                required
+              >
+            </div>
+
+
+            <div class="form-group">
+              <label for="projectStatus">Project Status *</label>
+
+              <select id="projectStatus">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+
+
+            <div class="form-group full">
+              <label for="mapUrl">Google Maps URL</label>
+
+              <input
+                type="url"
+                id="mapUrl"
+                placeholder="Paste Google Maps URL here"
+              >
+            </div>
+
+
+            <div class="form-group full">
+              <label for="projectDescription">Project Details *</label>
+
+              <textarea
+                id="projectDescription"
+                placeholder="Write complete project details..."
+                required
+              ></textarea>
+            </div>
+
+
+            <div class="form-group">
+              <label>Has Booking Started? *</label>
+
+              <div class="booking-options">
+
+                <label class="radio-box">
+                  <input
+                    type="radio"
+                    name="booking"
+                    value="yes"
+                    checked
+                    onchange="toggleBookingDate()"
+                  >
+                  Yes, Booking Started
+                </label>
+
+                <label class="radio-box">
+                  <input
+                    type="radio"
+                    name="booking"
+                    value="no"
+                    onchange="toggleBookingDate()"
+                  >
+                  No, Not Started
+                </label>
+
+              </div>
+            </div>
+
+
+            <div class="form-group" id="bookingDateGroup">
+              <label for="bookingStartDate">Booking Start Date</label>
+
+              <input
+                type="date"
+                id="bookingStartDate"
+              >
+            </div>
+
+
+            <!-- MULTIPLE IMAGES -->
+            <div class="form-group full">
+
+              <label for="projectImages">
+                Upload Project Photos
+              </label>
+
+              <input
+                type="file"
+                id="projectImages"
+                accept="image/*"
+                multiple
+              >
+
+              <div
+                class="image-preview"
+                id="imagePreview"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="resetForm()"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="saveProjectBtn"
+            >
+              Save Project
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- ALL PROJECTS -->
+      <section class="panel" id="projectsList">
+
+        <div class="panel-header">
+          <h2>All Projects</h2>
+          <p>View, edit, activate, deactivate and delete your projects.</p>
+        </div>
+
+
+        <div class="filters">
+
+          <input
+            type="text"
+            id="searchProject"
+            placeholder="Search project or location..."
+            oninput="renderProjects()"
+          >
+
+          <select
+            id="statusFilter"
+            onchange="renderProjects()"
+          >
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+
+
+          <select
+            id="bookingFilter"
+            onchange="renderProjects()"
+          >
+            <option value="all">All Booking Status</option>
+            <option value="yes">Booking Started</option>
+            <option value="no">Booking Not Started</option>
+          </select>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Photo</th>
+                <th>Project</th>
+                <th>Starting Price</th>
+                <th>Status</th>
+                <th>Booking</th>
+                <th>Booking Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="projectTableBody"></tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <script>
+
+    /* =====================================
+       DATA
+    ====================================== */
+
+    let projects = [];
+    let selectedImages = [];
+
+
+    /* =====================================
+       LOAD PROJECTS
+    ====================================== */
+
+    function loadProjects() {
+
+      try {
+
+        const savedProjects = localStorage.getItem(
+          "affinityProjects"
+        );
+
+        projects = savedProjects
+          ? JSON.parse(savedProjects)
+          : [];
+
+        if (!Array.isArray(projects)) {
+          projects = [];
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        projects = [];
+      }
+    }
+
+
+    /* =====================================
+       INITIALIZE
+    ====================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        loadProjects();
+
+        renderProjects();
+        updateDashboard();
+        toggleBookingDate();
+
+
+        document
+          .getElementById("projectImages")
+          .addEventListener(
+            "change",
+            handleImages
+          );
+
+      }
+    );
+
+
+    /* =====================================
+       SCROLL
+    ====================================== */
+
+    function scrollToSection(id) {
+
+      const section =
+        document.getElementById(id);
+
+      if (section) {
+
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }
+    }
+
+
+    /* =====================================
+       BOOKING DATE
+    ====================================== */
+
+    function toggleBookingDate() {
+
+      const selected = document.querySelector(
+        'input[name="booking"]:checked'
+      );
+
+      if (!selected) return;
+
+      const dateGroup =
+        document.getElementById(
+          "bookingDateGroup"
+        );
+
+      const dateInput =
+        document.getElementById(
+          "bookingStartDate"
+        );
+
+
+      if (selected.value === "yes") {
+
+        dateGroup.style.display = "flex";
+
+      } else {
+
+        dateGroup.style.display = "none";
+        dateInput.value = "";
+
+      }
+    }
+
+
+    /* =====================================
+       IMAGE UPLOAD
+    ====================================== */
+
+    async function handleImages(event) {
+
+      const files = Array.from(
+        event.target.files
+      );
+
+      if (!files.length) return;
+
+
+      showToast("Processing images...");
+
+
+      for (const file of files) {
+
+        if (!file.type.startsWith("image/")) {
+          continue;
+        }
+
+        try {
+
+          const compressedImage =
+            await compressImage(file);
+
+          selectedImages.push(
+            compressedImage
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Image processing error:",
+            error
+          );
+
+        }
+      }
+
+
+      renderImagePreview();
+
+
+      /* Important: allows user to select
+         more images again */
+      event.target.value = "";
+
+
+      showToast(
+        `${selectedImages.length} image(s) ready`
+      );
+    }
+
+
+    /* =====================================
+       COMPRESS IMAGE
+    ====================================== */
+
+    function compressImage(file) {
+
+      return new Promise(function(
+        resolve,
+        reject
+      ) {
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload = function(event) {
+
+          const img =
+            new Image();
+
+
+          img.onload = function() {
+
+            const maxWidth = 1000;
+            const maxHeight = 700;
+
+            let width = img.width;
+            let height = img.height;
+
+
+            if (
+              width > maxWidth ||
+              height > maxHeight
+            ) {
+
+              const ratio =
+                Math.min(
+                  maxWidth / width,
+                  maxHeight / height
+                );
+
+              width =
+                Math.round(width * ratio);
+
+              height =
+                Math.round(height * ratio);
+            }
+
+
+            const canvas =
+              document.createElement(
+                "canvas"
+              );
+
+            canvas.width = width;
+            canvas.height = height;
+
+
+            const ctx =
+              canvas.getContext("2d");
+
+
+            ctx.drawImage(
+              img,
+              0,
+              0,
+              width,
+              height
+            );
+
+
+            const compressed =
+              canvas.toDataURL(
+                "image/jpeg",
+                0.70
+              );
+
+
+            resolve(compressed);
+          };
+
+
+          img.onerror = reject;
+
+
+          img.src = event.target.result;
+        };
+
+
+        reader.onerror = reject;
+
+
+        reader.readAsDataURL(file);
+
+      });
+    }
+
+
+    /* =====================================
+       IMAGE PREVIEW
+    ====================================== */
+
+    function renderImagePreview() {
+
+      const preview =
+        document.getElementById(
+          "imagePreview"
+        );
+
+
+      preview.innerHTML = "";
+
+
+      selectedImages.forEach(
+        function(image, index) {
+
+          const item =
+            document.createElement("div");
+
+          item.className =
+            "preview-item";
+
+
+          const img =
+            document.createElement("img");
+
+          img.src = image;
+          img.alt =
+            "Project Image " +
+            (index + 1);
+
+
+          const removeButton =
+            document.createElement("button");
+
+          removeButton.type = "button";
+          removeButton.className =
+            "preview-remove";
+
+          removeButton.textContent = "×";
+
+
+          removeButton.onclick =
+            function() {
+
+              removeImage(index);
+
+            };
+
+
+          item.appendChild(img);
+          item.appendChild(removeButton);
+
+          preview.appendChild(item);
+
+        }
+      );
+    }
+
+
+    /* =====================================
+       REMOVE IMAGE
+    ====================================== */
+
+    function removeImage(index) {
+
+      selectedImages.splice(
+        index,
+        1
+      );
+
+      renderImagePreview();
+
+      showToast(
+        "Image removed"
+      );
+    }
+
+
+    /* =====================================
+       PROJECT FORM
+    ====================================== */
+
+    document
+      .getElementById("projectForm")
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          const editId =
+            document.getElementById(
+              "editProjectId"
+            ).value;
+
+
+          const bookingElement =
+            document.querySelector(
+              'input[name="booking"]:checked'
+            );
+
+
+          const projectName =
+            document.getElementById(
+              "projectName"
+            ).value.trim();
+
+
+          const projectLocation =
+            document.getElementById(
+              "projectLocation"
+            ).value.trim();
+
+
+          const startingPrice =
+            document.getElementById(
+              "startingPrice"
+            ).value;
+
+
+          const projectDescription =
+            document.getElementById(
+              "projectDescription"
+            ).value.trim();
+
+
+          /* VALIDATION */
+
+          if (!projectName) {
+
+            showToast(
+              "Please enter project name"
+            );
+
+            return;
+          }
+
+
+          if (!projectLocation) {
+
+            showToast(
+              "Please enter project location"
+            );
+
+            return;
+          }
+
+
+          if (!startingPrice) {
+
+            showToast(
+              "Please enter starting price"
+            );
+
+            return;
+          }
+
+
+          if (!projectDescription) {
+
+            showToast(
+              "Please enter project details"
+            );
+
+            return;
+          }
+
+
+          const project = {
+
+            id: editId
+              ? Number(editId)
+              : Date.now() +
+                Math.floor(
+                  Math.random() * 10000
+                ),
+
+            name: projectName,
+
+            location: projectLocation,
+
+            startingPrice:
+              Number(startingPrice),
+
+            status:
+              document.getElementById(
+                "projectStatus"
+              ).value,
+
+            mapUrl:
+              document.getElementById(
+                "mapUrl"
+              ).value.trim(),
+
+            description:
+              projectDescription,
+
+            booking:
+              bookingElement
+                ? bookingElement.value
+                : "no",
+
+            bookingStartDate:
+              bookingElement &&
+              bookingElement.value === "yes"
+                ? document.getElementById(
+                    "bookingStartDate"
+                  ).value
+                : "",
+
+            images:
+              [...selectedImages],
+
+            createdAt:
+              new Date().toISOString()
+          };
+
+
+          /* EDIT PROJECT */
+
+          if (editId) {
+
+            const index =
+              projects.findIndex(
+                function(item) {
+
+                  return item.id ===
+                    Number(editId);
+
+                }
+              );
+
+
+            if (index !== -1) {
+
+              project.createdAt =
+                projects[index].createdAt;
+
+              projects[index] =
+                project;
+
+              showToast(
+                "Project updated successfully"
+              );
+            }
+
+          }
+
+
+          /* ADD NEW PROJECT */
+
+          else {
+
+            projects.push(project);
+
+            showToast(
+              "Project added successfully"
+            );
+          }
+
+
+          /* SAVE */
+
+          const isSaved =
+            saveProjects();
+
+
+          if (!isSaved) {
+            return;
+          }
+
+
+          renderProjects();
+          updateDashboard();
+          resetForm();
+
+
+          setTimeout(
+            function() {
+
+              scrollToSection(
+                "projectsList"
+              );
+
+            },
+            300
+          );
+
+        }
+      );
+
+
+    /* =====================================
+       SAVE PROJECTS
+    ====================================== */
+
+    function saveProjects() {
+
+      try {
+
+        localStorage.setItem(
+          "affinityProjects",
+          JSON.stringify(projects)
+        );
+
+        return true;
+
+      } catch (error) {
+
+        console.error(
+          "Storage Error:",
+          error
+        );
+
+
+        showToast(
+          "Storage is full. Please delete old projects or use a backend."
+        );
+
+
+        return false;
+      }
+    }
+
+
+    /* =====================================
+       RENDER PROJECTS
+    ====================================== */
+
+    function renderProjects() {
+
+      const tbody =
+        document.getElementById(
+          "projectTableBody"
+        );
+
+
+      const search =
+        document.getElementById(
+          "searchProject"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+      const status =
+        document.getElementById(
+          "statusFilter"
+        ).value;
+
+
+      const bookingFilter =
+        document.getElementById(
+          "bookingFilter"
+        ).value;
+
+
+      const filteredProjects =
+        projects.filter(
+          function(project) {
+
+            const name =
+              (project.name || "")
+              .toLowerCase();
+
+            const location =
+              (project.location || "")
+              .toLowerCase();
+
+
+            const matchesSearch =
+              name.includes(search) ||
+              location.includes(search);
+
+
+            const matchesStatus =
+              status === "all" ||
+              project.status === status;
+
+
+            const matchesBooking =
+              bookingFilter === "all" ||
+              project.booking ===
+              bookingFilter;
+
+
+            return (
+              matchesSearch &&
+              matchesStatus &&
+              matchesBooking
+            );
+          }
+        );
+
+
+      /* EMPTY STATE */
+
+      if (
+        filteredProjects.length === 0
+      ) {
+
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7">
+              <div class="empty-state">
+                <h3>No projects found</h3>
+                <p>Add a project using the form above.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      /* TABLE DATA */
+
+      tbody.innerHTML =
+        filteredProjects
+        .slice()
+        .reverse()
+        .map(
+          function(project) {
+
+            const images =
+              Array.isArray(
+                project.images
+              )
+                ? project.images
+                : [];
+
+
+            const firstImage =
+              images.length > 0
+                ? images[0]
+                : "";
+
+
+            const price =
+              Number(
+                project.startingPrice || 0
+              ).toLocaleString(
+                "en-IN"
+              );
+
+
+            return `
+
+              <tr>
+
+                <td>
+
+                  ${
+                    firstImage
+
+                    ? `
+                      <img
+                        class="project-thumb"
+                        src="${firstImage}"
+                        alt="${escapeHTML(
+                          project.name
+                        )}"
+                      >
+                    `
+
+                    : `
+                      <div class="
+                        project-thumb
+                        no-image
+                      ">
+                        No Image
+                      </div>
+                    `
+                  }
+
+                </td>
+
+
+                <td>
+
+                  <span class="project-name">
+                    ${escapeHTML(
+                      project.name
+                    )}
+                  </span>
+
+                  <span class="project-location">
+                    ${escapeHTML(
+                      project.location
+                    )}
+                  </span>
+
+                  <span class="photo-count">
+                    ${images.length}
+                    Photo${
+                      images.length !== 1
+                        ? "s"
+                        : ""
+                    }
+                  </span>
+
+                </td>
+
+
+                <td>
+                  ₹${price}
+                </td>
+
+
+                <td>
+
+                  ${
+                    project.status === "active"
+
+                    ? `
+                      <span class="
+                        badge
+                        badge-active
+                      ">
+                        Active
+                      </span>
+                    `
+
+                    : `
+                      <span class="
+                        badge
+                        badge-inactive
+                      ">
+                        Inactive
+                      </span>
+                    `
+                  }
+
+                </td>
+
+
+                <td>
+
+                  ${
+                    project.booking === "yes"
+
+                    ? `
+                      <span class="
+                        badge
+                        badge-booking
+                      ">
+                        Started
+                      </span>
+                    `
+
+                    : `
+                      <span class="
+                        badge
+                        badge-no-booking
+                      ">
+                        Not Started
+                      </span>
+                    `
+                  }
+
+                </td>
+
+
+                <td>
+
+                  ${
+                    project.bookingStartDate
+
+                    ? formatDate(
+                        project.bookingStartDate
+                      )
+
+                    : "-"
+                  }
+
+                </td>
+
+
+                <td>
+
+                  <div class="actions">
+
+                    <button
+                      class="
+                        btn
+                        btn-primary
+                        btn-small
+                      "
+                      onclick="
+                        editProject(
+                          ${project.id}
+                        )
+                      "
+                    >
+                      Edit
+                    </button>
+
+
+                    <button
+                      class="
+                        btn
+                        btn-secondary
+                        btn-small
+                      "
+                      onclick="
+                        toggleProjectStatus(
+                          ${project.id}
+                        )
+                      "
+                    >
+                      ${
+                        project.status === "active"
+                          ? "Deactivate"
+                          : "Activate"
+                      }
+                    </button>
+
+
+                    <button
+                      class="
+                        btn
+                        btn-danger
+                        btn-small
+                      "
+                      onclick="
+                        deleteProject(
+                          ${project.id}
+                        )
+                      "
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `;
+          }
+        )
+        .join("");
+    }
+
+
+    /* =====================================
+       EDIT PROJECT
+    ====================================== */
+
+    function editProject(id) {
+
+      const project =
+        projects.find(
+          function(item) {
+
+            return item.id === id;
+
+          }
+        );
+
+
+      if (!project) return;
+
+
+      document.getElementById(
+        "editProjectId"
+      ).value =
+        project.id;
+
+
+      document.getElementById(
+        "projectName"
+      ).value =
+        project.name || "";
+
+
+      document.getElementById(
+        "projectLocation"
+      ).value =
+        project.location || "";
+
+
+      document.getElementById(
+        "startingPrice"
+      ).value =
+        project.startingPrice || "";
+
+
+      document.getElementById(
+        "projectStatus"
+      ).value =
+        project.status || "active";
+
+
+      document.getElementById(
+        "mapUrl"
+      ).value =
+        project.mapUrl || "";
+
+
+      document.getElementById(
+        "projectDescription"
+      ).value =
+        project.description || "";
+
+
+      const bookingRadio =
+        document.querySelector(
+          'input[name="booking"][value="' +
+          (project.booking || "no") +
+          '"]'
+        );
+
+
+      if (bookingRadio) {
+        bookingRadio.checked = true;
+      }
+
+
+      document.getElementById(
+        "bookingStartDate"
+      ).value =
+        project.bookingStartDate || "";
+
+
+      selectedImages =
+        Array.isArray(
+          project.images
+        )
+          ? [...project.images]
+          : [];
+
+
+      renderImagePreview();
+      toggleBookingDate();
+
+
+      document.getElementById(
+        "formTitle"
+      ).textContent =
+        "Edit Project";
+
+
+      scrollToSection(
+        "addProject"
+      );
+    }
+
+
+    /* =====================================
+       ACTIVATE / DEACTIVATE
+    ====================================== */
+
+    function toggleProjectStatus(id) {
+
+      const project =
+        projects.find(
+          function(item) {
+
+            return item.id === id;
+
+          }
+        );
+
+
+      if (!project) return;
+
+
+      project.status =
+        project.status === "active"
+          ? "inactive"
+          : "active";
+
+
+      if (saveProjects()) {
+
+        renderProjects();
+        updateDashboard();
+
+        showToast(
+          project.status === "active"
+            ? "Project activated"
+            : "Project deactivated"
+        );
+      }
+    }
+
+
+    /* =====================================
+       DELETE PROJECT
+    ====================================== */
+
+    function deleteProject(id) {
+
+      const project =
+        projects.find(
+          function(item) {
+
+            return item.id === id;
+
+          }
+        );
+
+
+      if (!project) return;
+
+
+      const confirmed =
+        confirm(
+          'Delete "' +
+          project.name +
+          '"?'
+        );
+
+
+      if (!confirmed) return;
+
+
+      projects =
+        projects.filter(
+          function(item) {
+
+            return item.id !== id;
+
+          }
+        );
+
+
+      if (saveProjects()) {
+
+        renderProjects();
+        updateDashboard();
+
+        showToast(
+          "Project deleted successfully"
+        );
+      }
+    }
+
+
+    /* =====================================
+       DASHBOARD COUNTS
+    ====================================== */
+
+    function updateDashboard() {
+
+      const total =
+        projects.length;
+
+
+      const active =
+        projects.filter(
+          function(project) {
+
+            return project.status ===
+              "active";
+
+          }
+        ).length;
+
+
+      const inactive =
+        projects.filter(
+          function(project) {
+
+            return project.status ===
+              "inactive";
+
+          }
+        ).length;
+
+
+      const booking =
+        projects.filter(
+          function(project) {
+
+            return project.booking ===
+              "yes";
+
+          }
+        ).length;
+
+
+      document.getElementById(
+        "totalProjects"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "activeProjects"
+      ).textContent = active;
+
+
+      document.getElementById(
+        "inactiveProjects"
+      ).textContent = inactive;
+
+
+      document.getElementById(
+        "bookingProjects"
+      ).textContent = booking;
+    }
+
+
+    /* =====================================
+       RESET FORM
+    ====================================== */
+
+    function resetForm() {
+
+      document
+        .getElementById(
+          "projectForm"
+        )
+        .reset();
+
+
+      document.getElementById(
+        "editProjectId"
+      ).value = "";
+
+
+      selectedImages = [];
+
+
+      document.getElementById(
+        "imagePreview"
+      ).innerHTML = "";
+
+
+      document.getElementById(
+        "projectImages"
+      ).value = "";
+
+
+      document.getElementById(
+        "formTitle"
+      ).textContent =
+        "Add New Project";
+
+
+      const yesRadio =
+        document.querySelector(
+          'input[name="booking"][value="yes"]'
+        );
+
+
+      if (yesRadio) {
+        yesRadio.checked = true;
+      }
+
+
+      toggleBookingDate();
+    }
+
+
+    /* =====================================
+       FORMAT DATE
+    ====================================== */
+
+    function formatDate(date) {
+
+      if (!date) return "-";
+
+
+      const parsed =
+        new Date(date);
+
+
+      if (
+        isNaN(
+          parsed.getTime()
+        )
+      ) {
+
+        return date;
+      }
+
+
+      return parsed.toLocaleDateString(
+        "en-IN",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+    }
+
+
+    /* =====================================
+       ESCAPE HTML
+    ====================================== */
+
+    function escapeHTML(value) {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        value || "";
+
+
+      return div.innerHTML;
+    }
+
+
+    /* =====================================
+       TOAST
+    ====================================== */
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById(
+          "toast"
+        );
+
+
+      toast.textContent =
+        message;
+
+
+      toast.classList.add(
+        "show"
+      );
+
+
+      clearTimeout(
+        window.toastTimer
+      );
+
+
+      window.toastTimer =
+        setTimeout(
+          function() {
+
+            toast.classList.remove(
+              "show"
+            );
+
+          },
+          3000
+        );
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Affinity Realty | Admin Panel</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --navy:#0d2846;
+  --blue:#1c5ea8;
+  --border:#e1e8ef;
+  --text:#5b6b7c;
+  --green:#16864b;
+  --red:#d93025;
+  --orange:#e58b00;
+}
+
+body{
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:#f4f7fa;
+  color:var(--navy);
+}
+
+/* ================= HEADER ================= */
+
+.admin-header{
+  background:var(--navy);
+  color:#fff;
+  padding:18px 30px;
+  box-shadow:0 3px 15px rgba(0,0,0,.12);
+}
+
+.admin-header-inner{
+  max-width:1400px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+}
+
+.admin-logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.admin-logo-icon{
+  width:45px;
+  height:45px;
+  border-radius:12px;
+  background:var(--blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+.admin-logo h1{
+  font-size:20px;
+  font-weight:800;
+}
+
+.admin-logo p{
+  color:#b7c6d7;
+  font-size:12px;
+  margin-top:3px;
+}
+
+/* ================= MAIN ================= */
+
+.admin-container{
+  max-width:1400px;
+  margin:auto;
+  padding:30px 20px 60px;
+}
+
+.admin-top{
+  margin-bottom:25px;
+}
+
+.admin-top h2{
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.admin-top p{
+  color:var(--text);
+}
+
+/* ================= STATS ================= */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.stat-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 6px 18px rgba(13,40,70,.05);
+}
+
+.stat-card span{
+  display:block;
+  color:var(--text);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.stat-card strong{
+  font-size:28px;
+  color:var(--navy);
+}
+
+/* ================= PANELS ================= */
+
+.admin-panel{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(13,40,70,.06);
+  margin-bottom:35px;
+}
+
+.panel-heading{
+  padding:20px 25px;
+  border-bottom:1px solid var(--border);
+}
+
+.panel-heading h2{
+  font-size:20px;
+}
+
+.panel-heading p{
+  color:var(--text);
+  font-size:13px;
+  margin-top:4px;
+}
+
+/* ================= FORM ================= */
+
+.project-form{
+  padding:25px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group.full-width{
+  grid-column:1 / -1;
+}
+
+.form-group label{
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:8px;
+  color:var(--navy);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  border:1px solid #d8e0e8;
+  border-radius:9px;
+  padding:12px 14px;
+  outline:none;
+  font-size:14px;
+  font-family:inherit;
+  transition:.2s;
+}
+
+.form-group textarea{
+  resize:vertical;
+  min-height:120px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(28,94,168,.10);
+}
+
+/* ================= UPLOAD ================= */
+
+.upload-box{
+  border:2px dashed #b8cbe0;
+  background:#f8fbfe;
+  border-radius:12px;
+  padding:25px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.upload-box:hover{
+  border-color:var(--blue);
+  background:#f1f7fd;
+}
+
+.upload-box input{
+  display:none;
+}
+
+.upload-icon{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.upload-box strong{
+  display:block;
+  font-size:14px;
+}
+
+.upload-box span{
+  color:var(--text);
+  font-size:12px;
+  margin-top:5px;
+  display:block;
+}
+
+/* ================= IMAGE PREVIEW ================= */
+
+.image-preview{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.preview-item{
+  position:relative;
+  height:110px;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+
+.preview-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.remove-image{
+  position:absolute;
+  top:6px;
+  right:6px;
+  width:27px;
+  height:27px;
+  border:none;
+  border-radius:50%;
+  background:var(--red);
+  color:#fff;
+  cursor:pointer;
+  font-size:17px;
+  line-height:1;
+}
+
+/* ================= BUTTONS ================= */
+
+.form-actions{
+  display:flex;
+  gap:12px;
+  margin-top:25px;
+}
+
+.btn{
+  border:none;
+  padding:12px 22px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--blue);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--navy);
+  transform:translateY(-2px);
+}
+
+.btn-secondary{
+  background:#edf2f7;
+  color:var(--navy);
+}
+
+.btn-secondary:hover{
+  background:#dfe8f1;
+}
+
+/* ================= PROJECTS ================= */
+
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  padding:25px;
+}
+
+.project-card{
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+  transition:.25s;
+}
+
+.project-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 35px rgba(13,40,70,.10);
+}
+
+.project-image{
+  height:210px;
+  position:relative;
+  background:#eaf0f5;
+}
+
+.project-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.no-image{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#8090a0;
+  font-size:14px;
+}
+
+.project-status{
+  position:absolute;
+  top:12px;
+  left:12px;
+  padding:6px 11px;
+  border-radius:20px;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+}
+
+.status-active{
+  background:var(--green);
+}
+
+.status-inactive{
+  background:#7b8794;
+}
+
+.project-body{
+  padding:18px;
+}
+
+.project-type{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  background:#eaf2fb;
+  color:var(--blue);
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.project-body h3{
+  font-size:19px;
+  margin-bottom:10px;
+}
+
+.project-location{
+  color:var(--text);
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.project-price{
+  font-size:16px;
+  font-weight:800;
+  color:var(--blue);
+  margin-bottom:14px;
+}
+
+.project-meta{
+  border-top:1px solid var(--border);
+  padding-top:12px;
+  font-size:12px;
+  color:var(--text);
+  display:grid;
+  gap:8px;
+}
+
+.booking-started{
+  color:var(--green);
+  font-weight:700;
+}
+
+.booking-not-started{
+  color:var(--orange);
+  font-weight:700;
+}
+
+.map-link{
+  color:var(--blue);
+  font-weight:700;
+  text-decoration:none;
+}
+
+/* ================= PROJECT BUTTONS ================= */
+
+.project-actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:18px;
+}
+
+.action-btn{
+  border:none;
+  padding:10px 5px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:700;
+}
+
+.edit-btn{
+  background:#eaf2fb;
+  color:var(--blue);
+}
+
+.status-btn{
+  background:#eef3f6;
+  color:var(--navy);
+}
+
+.delete-btn{
+  background:#fff0ef;
+  color:var(--red);
+}
+
+/* ================= EMPTY ================= */
+
+.empty-projects{
+  padding:55px 20px;
+  text-align:center;
+  color:var(--text);
+  grid-column:1 / -1;
+}
+
+.empty-projects div{
+  font-size:45px;
+  margin-bottom:12px;
+}
+
+.empty-projects h3{
+  color:var(--navy);
+  margin-bottom:6px;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:var(--green);
+  color:#fff;
+  padding:13px 20px;
+  border-radius:9px;
+  font-size:14px;
+  font-weight:600;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  transform:translateX(150%);
+  transition:.3s;
+  z-index:9999;
+  max-width:380px;
+}
+
+.message.show{
+  transform:translateX(0);
+}
+
+.message.error{
+  background:var(--red);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1050px){
+
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .projects-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .image-preview{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+}
+
+@media(max-width:700px){
+
+  .admin-header{
+    padding:15px;
+  }
+
+  .admin-container{
+    padding:20px 15px 40px;
+  }
+
+  .admin-top h2{
+    font-size:23px;
+  }
+
+  .stats-grid,
+  .form-grid,
+  .projects-grid{
+    grid-template-columns:1fr;
+  }
+
+  .project-form,
+  .panel-heading{
+    padding:18px;
+  }
+
+  .image-preview{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="messageBox" class="message"></div>
+
+<header class="admin-header">
+  <div class="admin-header-inner">
+
+    <div class="admin-logo">
+
+      <div class="admin-logo-icon">🏢</div>
+
+      <div>
+        <h1>AFFINITY REALTY</h1>
+        <p>Project Management Admin Panel</p>
+      </div>
+
+    </div>
+
+  </div>
+</header>
+
+
+<main class="admin-container">
+
+  <div class="admin-top">
+    <h2>Project Management</h2>
+    <p>Add, edit, delete, activate or deactivate your real estate projects.</p>
+  </div>
+
+
+  <!-- ================= STATS ================= -->
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <span>Total Projects</span>
+      <strong id="totalProjects">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Active Projects</span>
+      <strong id="activeProjects">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Inactive Projects</span>
+      <strong id="inactiveProjects">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Booking Started</span>
+      <strong id="bookingProjects">0</strong>
+    </div>
+
+  </div>
+
+
+  <!-- ================= ADD PROJECT ================= -->
+
+  <section class="admin-panel">
+
+    <div class="panel-heading">
+      <h2 id="formTitle">Add New Project</h2>
+      <p>Enter complete project information.</p>
+    </div>
+
+
+    <form id="projectForm" class="project-form">
+
+      <input type="hidden" id="editProjectId">
+
+
+      <div class="form-grid">
+
+
+        <div class="form-group">
+          <label>Project Name *</label>
+
+          <input
+            type="text"
+            id="projectName"
+            placeholder="Example: Affinity Greens"
+            required
+          >
+        </div>
+
+
+        <div class="form-group">
+          <label>Property Type *</label>
+
+          <select id="propertyType" required>
+            <option value="">Select Property Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Plotted Development">Plotted Development</option>
+            <option value="Villa">Villa</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Row House">Row House</option>
+            <option value="Farmhouse">Farmhouse</option>
+            <option value="Mixed Use">Mixed Use</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label>Location *</label>
+
+          <input
+            type="text"
+            id="projectLocation"
+            placeholder="Example: Dapodi, Pune"
+            required
+          >
+        </div>
+
+
+        <div class="form-group">
+          <label>Starting Price *</label>
+
+          <input
+            type="number"
+            id="startingPrice"
+            placeholder="Example: 2500000"
+            min="0"
+            required
+          >
+        </div>
+
+
+        <div class="form-group">
+          <label>Booking Status *</label>
+
+          <select id="bookingStatus">
+            <option value="Not Started">Booking Not Started</option>
+            <option value="Started">Booking Started</option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label>Booking Start Date</label>
+
+          <input
+            type="date"
+            id="bookingDate"
+          >
+        </div>
+
+
+        <div class="form-group">
+          <label>Project Status *</label>
+
+          <select id="projectStatus">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label>Google Map URL</label>
+
+          <input
+            type="url"
+            id="googleMap"
+            placeholder="Paste Google Maps URL"
+          >
+        </div>
+
+
+        <div class="form-group full-width">
+          <label>Project Details *</label>
+
+          <textarea
+            id="projectDetails"
+            placeholder="Enter complete project details..."
+            required
+          ></textarea>
+        </div>
+
+
+        <!-- IMAGE UPLOAD -->
+
+        <div class="form-group full-width">
+
+          <label>Project Images</label>
+
+          <label class="upload-box">
+
+            <input
+              type="file"
+              id="projectImages"
+              accept="image/*"
+              multiple
+            >
+
+            <div class="upload-icon">📷</div>
+
+            <strong>Click to Upload Project Images</strong>
+
+            <span>Select one or multiple project images. No image size limit.</span>
+
+          </label>
+
+
+          <div
+            id="imagePreview"
+            class="image-preview"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="saveBtn"
+        >
+          Save Project
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="resetBtn"
+        >
+          Clear Form
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- ================= ALL PROJECTS ================= -->
+
+  <section class="admin-panel">
+
+    <div class="panel-heading">
+      <h2>All Projects</h2>
+      <p>Manage all saved projects.</p>
+    </div>
+
+    <div
+      id="projectsGrid"
+      class="projects-grid"
+    ></div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   LOAD PROJECTS
+========================================= */
+
+let projects = [];
+
+try {
+
+  projects = JSON.parse(
+    localStorage.getItem("affinityProjects")
+  ) || [];
+
+} catch(error) {
+
+  projects = [];
+
+}
+
+
+let selectedImages = [];
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const form = document.getElementById("projectForm");
+
+const projectName =
+  document.getElementById("projectName");
+
+const propertyType =
+  document.getElementById("propertyType");
+
+const projectLocation =
+  document.getElementById("projectLocation");
+
+const startingPrice =
+  document.getElementById("startingPrice");
+
+const bookingStatus =
+  document.getElementById("bookingStatus");
+
+const bookingDate =
+  document.getElementById("bookingDate");
+
+const projectStatus =
+  document.getElementById("projectStatus");
+
+const googleMap =
+  document.getElementById("googleMap");
+
+const projectDetails =
+  document.getElementById("projectDetails");
+
+const projectImages =
+  document.getElementById("projectImages");
+
+const imagePreview =
+  document.getElementById("imagePreview");
+
+const projectsGrid =
+  document.getElementById("projectsGrid");
+
+const editProjectId =
+  document.getElementById("editProjectId");
+
+const saveBtn =
+  document.getElementById("saveBtn");
+
+const formTitle =
+  document.getElementById("formTitle");
+
+
+/* =========================================
+   IMAGE UPLOAD
+   NO SIZE LIMIT
+========================================= */
+
+projectImages.addEventListener(
+  "change",
+  function(event) {
+
+    const files =
+      Array.from(event.target.files);
+
+    if(!files.length) return;
+
+
+    files.forEach(function(file) {
+
+      /* Only check if it is an image */
+
+      if(!file.type.startsWith("image/")) {
+
+        showMessage(
+          "Please upload only image files.",
+          true
+        );
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload = function(e) {
+
+        selectedImages.push(
+          e.target.result
+        );
+
+        renderImagePreview();
+
+      };
+
+
+      reader.onerror = function() {
+
+        showMessage(
+          "Unable to read image.",
+          true
+        );
+
+      };
+
+
+      /* No image size restriction */
+
+      reader.readAsDataURL(file);
+
+    });
+
+
+    /* Allows selecting same image again */
+
+    event.target.value = "";
+
+  }
+);
+
+
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+function renderImagePreview() {
+
+  imagePreview.innerHTML = "";
+
+
+  selectedImages.forEach(
+    function(image,index) {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "preview-item";
+
+
+      const img =
+        document.createElement("img");
+
+      img.src = image;
+
+      img.alt = "Project Image";
+
+
+      const button =
+        document.createElement("button");
+
+      button.type = "button";
+
+      button.className =
+        "remove-image";
+
+      button.innerHTML = "×";
+
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          selectedImages.splice(index,1);
+
+          renderImagePreview();
+
+        }
+      );
+
+
+      item.appendChild(img);
+
+      item.appendChild(button);
+
+      imagePreview.appendChild(item);
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   SAVE PROJECT
+========================================= */
+
+form.addEventListener(
+  "submit",
+  function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+      projectName.value.trim();
+
+    const type =
+      propertyType.value;
+
+    const location =
+      projectLocation.value.trim();
+
+    const price =
+      startingPrice.value;
+
+    const details =
+      projectDetails.value.trim();
+
+
+    if(
+      !name ||
+      !type ||
+      !location ||
+      !price ||
+      !details
+    ) {
+
+      showMessage(
+        "Please fill all required fields.",
+        true
+      );
+
+      return;
+
+    }
+
+
+    const isEditing =
+      editProjectId.value !== "";
+
+
+    const projectData = {
+
+      id:isEditing
+        ? Number(editProjectId.value)
+        : Date.now(),
+
+      name:name,
+
+      propertyType:type,
+
+      location:location,
+
+      startingPrice:Number(price),
+
+      bookingStatus:
+        bookingStatus.value,
+
+      bookingDate:
+        bookingDate.value,
+
+      status:
+        projectStatus.value,
+
+      googleMap:
+        googleMap.value.trim(),
+
+      details:details,
+
+      images:
+        [...selectedImages]
+
+    };
+
+
+    /* UPDATE PROJECT */
+
+    if(isEditing) {
+
+      const index =
+        projects.findIndex(
+          project =>
+            project.id === projectData.id
+        );
+
+
+      if(index !== -1) {
+
+        projects[index] =
+          projectData;
+
+      }
+
+    }
+
+
+    /* ADD NEW PROJECT */
+
+    else {
+
+      projects.push(projectData);
+
+    }
+
+
+    /* SAVE */
+
+    try {
+
+      localStorage.setItem(
+        "affinityProjects",
+        JSON.stringify(projects)
+      );
+
+
+      /* Immediately show saved project */
+
+      renderProjects();
+
+      updateStats();
+
+
+      showMessage(
+        isEditing
+          ? "Project updated successfully."
+          : "Project saved successfully."
+      );
+
+
+      resetForm();
+
+
+    } catch(error) {
+
+      console.error(error);
+
+
+      if(!isEditing) {
+
+        projects.pop();
+
+      }
+
+
+      showMessage(
+        "Unable to save project. Browser storage is full.",
+        true
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   RENDER PROJECTS
+========================================= */
+
+function renderProjects() {
+
+  projectsGrid.innerHTML = "";
+
+
+  if(projects.length === 0) {
+
+    projectsGrid.innerHTML = `
+
+      <div class="empty-projects">
+
+        <div>🏗️</div>
+
+        <h3>No Projects Added Yet</h3>
+
+        <p>
+          Add your first project using the form above.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  projects.forEach(
+    function(project) {
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "project-card";
+
+
+      let imageHTML = `
+
+        <div class="no-image">
+          No Image Available
+        </div>
+
+      `;
+
+
+      if(
+        project.images &&
+        project.images.length > 0
+      ) {
+
+        imageHTML = `
+
+          <img
+            src="${project.images[0]}"
+            alt="${escapeHTML(project.name)}"
+          >
+
+        `;
+
+      }
+
+
+      const bookingClass =
+        project.bookingStatus === "Started"
+          ? "booking-started"
+          : "booking-not-started";
+
+
+      const bookingText =
+        project.bookingStatus === "Started"
+          ? "Booking Started"
+          : "Booking Not Started";
+
+
+      card.innerHTML = `
+
+        <div class="project-image">
+
+          ${imageHTML}
+
+
+          <span class="project-status
+            ${
+              project.status === "active"
+                ? "status-active"
+                : "status-inactive"
+            }
+          ">
+
+            ${
+              project.status === "active"
+                ? "ACTIVE"
+                : "INACTIVE"
+            }
+
+          </span>
+
+        </div>
+
+
+        <div class="project-body">
+
+
+          <span class="project-type">
+
+            ${escapeHTML(
+              project.propertyType
+            )}
+
+          </span>
+
+
+          <h3>
+
+            ${escapeHTML(project.name)}
+
+          </h3>
+
+
+          <div class="project-location">
+
+            📍 ${escapeHTML(project.location)}
+
+          </div>
+
+
+          <div class="project-price">
+
+            Starting from ₹${Number(
+              project.startingPrice
+            ).toLocaleString("en-IN")}
+
+          </div>
+
+
+          <div class="project-meta">
+
+
+            <div>
+
+              Booking:
+
+              <span class="${bookingClass}">
+
+                ${bookingText}
+
+              </span>
+
+            </div>
+
+
+            ${
+              project.bookingDate
+
+              ? `
+
+                <div>
+                  Booking Date:
+                  ${formatDate(project.bookingDate)}
+                </div>
+
+              `
+
+              : ""
+            }
+
+
+            ${
+              project.images &&
+              project.images.length > 1
+
+              ? `
+
+                <div>
+                  ${project.images.length}
+                  images uploaded
+                </div>
+
+              `
+
+              : ""
+            }
+
+
+            ${
+              project.googleMap
+
+              ? `
+
+                <div>
+
+                  <a
+                    href="${escapeHTML(project.googleMap)}"
+                    target="_blank"
+                    rel="noopener"
+                    class="map-link"
+                  >
+                    View Google Map ↗
+                  </a>
+
+                </div>
+
+              `
+
+              : ""
+            }
+
+
+          </div>
+
+
+          <div class="project-actions">
+
+
+            <button
+              class="action-btn edit-btn"
+              data-action="edit"
+              data-id="${project.id}"
+            >
+              Edit
+            </button>
+
+
+            <button
+              class="action-btn status-btn"
+              data-action="status"
+              data-id="${project.id}"
+            >
+
+              ${
+                project.status === "active"
+                  ? "Deactivate"
+                  : "Activate"
+              }
+
+            </button>
+
+
+            <button
+              class="action-btn delete-btn"
+              data-action="delete"
+              data-id="${project.id}"
+            >
+              Delete
+            </button>
+
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      projectsGrid.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   PROJECT ACTIONS
+========================================= */
+
+projectsGrid.addEventListener(
+  "click",
+  function(event) {
+
+    const button =
+      event.target.closest(".action-btn");
+
+    if(!button) return;
+
+
+    const id =
+      Number(button.dataset.id);
+
+    const action =
+      button.dataset.action;
+
+
+    if(action === "edit") {
+
+      editProject(id);
+
+    }
+
+
+    if(action === "status") {
+
+      toggleStatus(id);
+
+    }
+
+
+    if(action === "delete") {
+
+      deleteProject(id);
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   EDIT PROJECT
+========================================= */
+
+function editProject(id) {
+
+  const project =
+    projects.find(
+      project => project.id === id
+    );
+
+
+  if(!project) return;
+
+
+  editProjectId.value =
+    project.id;
+
+  projectName.value =
+    project.name || "";
+
+  propertyType.value =
+    project.propertyType || "";
+
+  projectLocation.value =
+    project.location || "";
+
+  startingPrice.value =
+    project.startingPrice || "";
+
+  bookingStatus.value =
+    project.bookingStatus || "Not Started";
+
+  bookingDate.value =
+    project.bookingDate || "";
+
+  projectStatus.value =
+    project.status || "active";
+
+  googleMap.value =
+    project.googleMap || "";
+
+  projectDetails.value =
+    project.details || "";
+
+
+  selectedImages =
+    project.images
+      ? [...project.images]
+      : [];
+
+
+  renderImagePreview();
+
+
+  formTitle.textContent =
+    "Edit Project";
+
+  saveBtn.textContent =
+    "Update Project";
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================
+   TOGGLE STATUS
+========================================= */
+
+function toggleStatus(id) {
+
+  const project =
+    projects.find(
+      project => project.id === id
+    );
+
+
+  if(!project) return;
+
+
+  project.status =
+    project.status === "active"
+      ? "inactive"
+      : "active";
+
+
+  saveProjects();
+
+  renderProjects();
+
+  updateStats();
+
+
+  showMessage(
+    project.status === "active"
+      ? "Project activated successfully."
+      : "Project deactivated successfully."
+  );
+
+}
+
+
+/* =========================================
+   DELETE PROJECT
+========================================= */
+
+function deleteProject(id) {
+
+  const project =
+    projects.find(
+      project => project.id === id
+    );
+
+
+  if(!project) return;
+
+
+  const confirmed =
+    confirm(
+      `Delete "${project.name}"?`
+    );
+
+
+  if(!confirmed) return;
+
+
+  projects =
+    projects.filter(
+      project => project.id !== id
+    );
+
+
+  saveProjects();
+
+  renderProjects();
+
+  updateStats();
+
+
+  showMessage(
+    "Project deleted successfully."
+  );
+
+}
+
+
+/* =========================================
+   SAVE PROJECTS
+========================================= */
+
+function saveProjects() {
+
+  try {
+
+    localStorage.setItem(
+      "affinityProjects",
+      JSON.stringify(projects)
+    );
+
+  } catch(error) {
+
+    console.error(error);
+
+    showMessage(
+      "Unable to save. Browser storage is full.",
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   RESET FORM
+========================================= */
+
+function resetForm() {
+
+  form.reset();
+
+  editProjectId.value = "";
+
+  selectedImages = [];
+
+  imagePreview.innerHTML = "";
+
+  formTitle.textContent =
+    "Add New Project";
+
+  saveBtn.textContent =
+    "Add Project";
+
+}
+
+
+document
+  .getElementById("resetBtn")
+  .addEventListener(
+    "click",
+    resetForm
+  );
+
+
+/* =========================================
+   UPDATE STATS
+========================================= */
+
+function updateStats() {
+
+  document.getElementById(
+    "totalProjects"
+  ).textContent =
+    projects.length;
+
+
+  document.getElementById(
+    "activeProjects"
+  ).textContent =
+    projects.filter(
+      project =>
+        project.status === "active"
+    ).length;
+
+
+  document.getElementById(
+    "inactiveProjects"
+  ).textContent =
+    projects.filter(
+      project =>
+        project.status === "inactive"
+    ).length;
+
+
+  document.getElementById(
+    "bookingProjects"
+  ).textContent =
+    projects.filter(
+      project =>
+        project.bookingStatus === "Started"
+    ).length;
+
+}
+
+
+/* =========================================
+   SHOW MESSAGE
+========================================= */
+
+function showMessage(
+  text,
+  isError = false
+) {
+
+  const box =
+    document.getElementById(
+      "messageBox"
+    );
+
+
+  box.textContent = text;
+
+
+  box.className =
+    isError
+      ? "message error show"
+      : "message show";
+
+
+  setTimeout(
+    function() {
+
+      box.classList.remove("show");
+
+    },
+    3500
+  );
+
+}
+
+
+/* =========================================
+   DATE FORMAT
+========================================= */
+
+function formatDate(dateValue) {
+
+  const date =
+    new Date(dateValue + "T00:00:00");
+
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+renderProjects();
+
+updateStats();
+
+</script>
+
+</body>
+</html>

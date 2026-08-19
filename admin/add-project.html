@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Project | Affinity Admin</title>
+
+<style>
+:root{
+  --blue:#1768d3;
+  --blue-dark:#095dcc;
+  --dark:#102b49;
+  --text:#637589;
+  --bg:#f5f9fd;
+  --border:#e2ebf4;
+  --white:#ffffff;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  display:flex;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  width:260px;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  background:#102b49;
+  padding:28px 18px;
+}
+
+.logo{
+  color:#ffffff;
+  font-size:23px;
+  font-weight:800;
+  margin:0 12px 45px;
+  letter-spacing:.5px;
+}
+
+.logo span{
+  color:#62a3ff;
+}
+
+.nav a{
+  display:block;
+  padding:15px;
+  margin-bottom:8px;
+  color:#c3d1df;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:600;
+  transition:.25s;
+}
+
+.nav a:hover,
+.nav a.active{
+  background:#1768d3;
+  color:#ffffff;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:260px;
+  width:calc(100% - 260px);
+  padding:40px;
+}
+
+.header{
+  margin-bottom:30px;
+}
+
+.header h1{
+  font-size:32px;
+  color:var(--dark);
+}
+
+.header p{
+  color:var(--text);
+  margin-top:8px;
+}
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.message{
+  display:none;
+  max-width:950px;
+  margin-bottom:20px;
+  padding:15px 18px;
+  border-radius:10px;
+  background:#e8f8ee;
+  color:#198754;
+  font-weight:bold;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-card{
+  max-width:950px;
+  background:var(--white);
+  padding:35px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 30px rgba(16,43,73,.06);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+label{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:9px;
+  color:#263f59;
+}
+
+.optional{
+  font-size:12px;
+  font-weight:500;
+  color:#8a99a8;
+  margin-left:5px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:14px;
+  border:1px solid #d9e4ee;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+  font-family:inherit;
+  background:#ffffff;
+  color:var(--dark);
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(23,104,211,.08);
+}
+
+textarea{
+  resize:vertical;
+  min-height:120px;
+}
+
+/* =========================
+   BOOKING SECTION
+========================= */
+
+.booking-section{
+  grid-column:1/-1;
+  padding:24px;
+  border:1px solid #dce9f5;
+  border-radius:14px;
+  background:#f8fbff;
+}
+
+.booking-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+  font-size:18px;
+  font-weight:800;
+  color:#102b49;
+}
+
+.booking-title span{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:#eaf3ff;
+}
+
+.booking-info{
+  margin-bottom:20px;
+  color:#637589;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.booking-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+/* =========================
+   OFFER SECTION
+========================= */
+
+.offer-section{
+  grid-column:1/-1;
+  padding:24px;
+  border:1px solid #f0dca9;
+  border-radius:14px;
+  background:#fffdf7;
+}
+
+.offer-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+  font-size:18px;
+  font-weight:800;
+  color:#102b49;
+}
+
+.offer-title span{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:#fff3d6;
+}
+
+.offer-info{
+  margin-bottom:20px;
+  color:#637589;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.offer-toggle-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:16px;
+  margin-bottom:20px;
+  background:#ffffff;
+  border:1px solid #f1e6cb;
+  border-radius:12px;
+}
+
+.offer-toggle-row strong{
+  display:block;
+  font-size:14px;
+  color:#263f59;
+}
+
+.offer-toggle-row p{
+  margin-top:5px;
+  color:#637589;
+  font-size:12px;
+}
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch{
+  position:relative;
+  display:inline-block;
+  width:54px;
+  height:29px;
+  flex-shrink:0;
+  margin:0;
+}
+
+.switch input{
+  opacity:0;
+  width:0;
+  height:0;
+}
+
+.slider{
+  position:absolute;
+  cursor:pointer;
+  inset:0;
+  background:#cbd5df;
+  border-radius:30px;
+  transition:.3s;
+}
+
+.slider::before{
+  content:"";
+  position:absolute;
+  width:21px;
+  height:21px;
+  left:4px;
+  bottom:4px;
+  border-radius:50%;
+  background:#ffffff;
+  transition:.3s;
+}
+
+.switch input:checked + .slider{
+  background:#1768d3;
+}
+
+.switch input:checked + .slider::before{
+  transform:translateX(25px);
+}
+
+/* =========================
+   OFFER FIELDS
+========================= */
+
+.offer-fields{
+  display:none;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.offer-fields.active{
+  display:grid;
+}
+
+.offer-fields .full{
+  grid-column:1/-1;
+}
+
+/* =========================
+   IMAGE UPLOAD
+========================= */
+
+.upload-box{
+  border:2px dashed #bfd1e3;
+  border-radius:12px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
+  background:#f9fcff;
+  transition:.25s;
+}
+
+.upload-box:hover{
+  border-color:#1768d3;
+  background:#f4f9ff;
+}
+
+.upload-box input{
+  display:none;
+}
+
+.upload-text{
+  color:#637589;
+  line-height:1.6;
+}
+
+.upload-text strong{
+  display:block;
+  color:#1768d3;
+  font-size:16px;
+  margin-bottom:4px;
+}
+
+#imagePreview{
+  width:100%;
+  max-height:300px;
+  object-fit:cover;
+  border-radius:12px;
+  display:none;
+  margin-top:15px;
+  border:1px solid #e1eaf2;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions{
+  display:flex;
+  gap:15px;
+  margin-top:30px;
+}
+
+button,
+.cancel{
+  border:none;
+  padding:14px 24px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.25s;
+}
+
+.save{
+  background:var(--blue);
+  color:#ffffff;
+}
+
+.save:hover{
+  background:var(--blue-dark);
+}
+
+.cancel{
+  background:#eef3f8;
+  color:#34495e;
+}
+
+.cancel:hover{
+  background:#e1e9f0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+  .sidebar{
+    width:220px;
+  }
+
+  .main{
+    margin-left:220px;
+    width:calc(100% - 220px);
+  }
+
+}
+
+@media(max-width:700px){
+
+  body{
+    display:block;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .nav{
+    display:flex;
+    flex-wrap:wrap;
+  }
+
+  .nav a{
+    flex:1;
+    min-width:140px;
+  }
+
+  .logo{
+    margin-bottom:20px;
+  }
+
+  .main{
+    margin:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .header h1{
+    font-size:27px;
+  }
+
+  .form-grid,
+  .booking-grid,
+  .offer-fields{
+    grid-template-columns:1fr;
+  }
+
+  .form-group.full,
+  .booking-section,
+  .offer-section,
+  .offer-fields .full{
+    grid-column:auto;
+  }
+
+  .form-card{
+    padding:20px;
+  }
+
+  .offer-toggle-row{
+    align-items:flex-start;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .save,
+  .cancel{
+    width:100%;
+    text-align:center;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+  <div class="logo">
+    AFFINITY <span>ADMIN</span>
+  </div>
+
+  <nav class="nav">
+    <a href="admin.html">🏠 Dashboard</a>
+    <a href="add-project.html" class="active">➕ Add Project</a>
+    <a href="all-projects.html">🏢 All Projects</a>
+    <a href="leads.html">👥 Leads</a>
+  </nav>
+
+</aside>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="main">
+
+  <div class="header">
+    <h1 id="pageTitle">Add New Project</h1>
+
+    <p id="pageSubtitle">
+      Create a new real estate project.
+    </p>
+  </div>
+
+
+  <div class="message" id="successMessage">
+    Project saved successfully!
+  </div>
+
+
+  <!-- =========================
+       PROJECT FORM
+  ========================= -->
+
+  <form class="form-card" id="projectForm">
+
+    <div class="form-grid">
+
+
+      <!-- PROJECT NAME -->
+
+      <div class="form-group">
+
+        <label>
+          Project Name *
+        </label>
+
+        <input
+          type="text"
+          id="projectName"
+          placeholder="Enter project name"
+          required
+        >
+
+      </div>
+
+
+      <!-- LOCATION -->
+
+      <div class="form-group">
+
+        <label>
+          Location *
+        </label>
+
+        <input
+          type="text"
+          id="projectLocation"
+          placeholder="Example: Dapodi, Pune"
+          required
+        >
+
+      </div>
+
+
+      <!-- PROJECT TYPE -->
+
+      <div class="form-group">
+
+        <label>
+          Project Type *
+        </label>
+
+        <select id="projectType" required>
+
+          <option value="">
+            Select Project Type
+          </option>
+
+          <option value="Residential Project">
+            Residential Project
+          </option>
+
+          <option value="Commercial Project">
+            Commercial Project
+          </option>
+
+          <option value="Plotted Development">
+            Plotted Development
+          </option>
+
+          <option value="Villa Project">
+            Villa Project
+          </option>
+
+          <option value="Apartment Project">
+            Apartment Project
+          </option>
+
+          <option value="Mixed Use Development">
+            Mixed Use Development
+          </option>
+
+          <option value="Industrial Project">
+            Industrial Project
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- PROJECT STATUS -->
+
+      <div class="form-group">
+
+        <label>
+          Project Status *
+        </label>
+
+        <select id="projectStatus" required>
+
+          <option value="">
+            Select Status
+          </option>
+
+          <option value="Ongoing">
+            Ongoing
+          </option>
+
+          <option value="Upcoming">
+            Upcoming
+          </option>
+
+          <option value="Completed">
+            Completed
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           BOOKING AVAILABILITY
+      ========================= -->
+
+      <div class="booking-section">
+
+        <div class="booking-title">
+          <span>📅</span>
+          Booking Availability
+        </div>
+
+        <p class="booking-info">
+          This section is optional. Add booking dates if you want to
+          specify when booking opens and closes for this project.
+        </p>
+
+        <div class="booking-grid">
+
+
+          <div class="form-group">
+
+            <label>
+              Booking Start Date
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="date"
+              id="bookingStartDate"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Booking End Date
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="date"
+              id="bookingEndDate"
+            >
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           SPECIAL OFFER
+      ========================= -->
+
+      <div class="offer-section">
+
+        <div class="offer-title">
+          <span>🎁</span>
+          Special Offer
+        </div>
+
+        <p class="offer-info">
+          Enable this option if the project has a limited-time offer,
+          discount, booking benefit, or special promotion.
+        </p>
+
+
+        <!-- OFFER TOGGLE -->
+
+        <div class="offer-toggle-row">
+
+          <div>
+
+            <strong>
+              Enable Special Offer
+            </strong>
+
+            <p>
+              Turn on to add optional offer details.
+            </p>
+
+          </div>
+
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              id="offerEnabled"
+            >
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+
+        <!-- OFFER FIELDS -->
+
+        <div
+          class="offer-fields"
+          id="offerFields"
+        >
+
+
+          <!-- OFFER TITLE -->
+
+          <div class="form-group">
+
+            <label>
+              Offer Title
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="text"
+              id="offerTitle"
+              placeholder="Example: Early Bird Offer"
+            >
+
+          </div>
+
+
+          <!-- OFFER AMOUNT -->
+
+          <div class="form-group">
+
+            <label>
+              Offer Amount / Discount
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="text"
+              id="offerAmount"
+              placeholder="Example: ₹2 Lakh Off or 10% Discount"
+            >
+
+          </div>
+
+
+          <!-- OFFER DESCRIPTION -->
+
+          <div class="form-group full">
+
+            <label>
+              Offer Description
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <textarea
+              id="offerDescription"
+              placeholder="Write details about the special offer..."
+            ></textarea>
+
+          </div>
+
+
+          <!-- OFFER START DATE -->
+
+          <div class="form-group">
+
+            <label>
+              Offer Start Date
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="date"
+              id="offerStartDate"
+            >
+
+          </div>
+
+
+          <!-- OFFER END DATE -->
+
+          <div class="form-group">
+
+            <label>
+              Offer End Date
+              <span class="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="date"
+              id="offerEndDate"
+            >
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           PROJECT DESCRIPTION
+      ========================= -->
+
+      <div class="form-group full">
+
+        <label>
+          Project Description
+          <span class="optional">(Optional)</span>
+        </label>
+
+        <textarea
+          id="projectDescription"
+          placeholder="Write project details..."
+        ></textarea>
+
+      </div>
+
+
+      <!-- =========================
+           PROJECT IMAGE
+      ========================= -->
+
+      <div class="form-group full">
+
+        <label>
+          Project Image *
+        </label>
+
+
+        <label class="upload-box">
+
+          <div class="upload-text">
+
+            <strong>
+              📷 Upload Project Image
+            </strong>
+
+            Click here to select an image from your computer.
+
+          </div>
+
+
+          <input
+            type="file"
+            id="projectImage"
+            accept="image/*"
+            required
+          >
+
+        </label>
+
+
+        <img
+          id="imagePreview"
+          alt="Project Preview"
+        >
+
+      </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         ACTION BUTTONS
+    ========================= -->
+
+    <div class="actions">
+
+      <button
+        type="submit"
+        class="save"
+        id="saveButton"
+      >
+        Save Project
+      </button>
+
+
+      <a
+        href="all-projects.html"
+        class="cancel"
+      >
+        Cancel
+      </a>
+
+    </div>
+
+
+  </form>
+
+</main>
+
+
+<script>
+
+/* =========================
+   GLOBAL VARIABLES
+========================= */
+
+let selectedImage = "";
+let editingProjectId = null;
+
+
+/* =========================
+   IMAGE UPLOAD
+========================= */
+
+document
+.getElementById("projectImage")
+.addEventListener("change", function(e){
+
+  const file = e.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(event){
+
+    selectedImage = event.target.result;
+
+    const preview =
+      document.getElementById("imagePreview");
+
+    preview.src = selectedImage;
+
+    preview.style.display = "block";
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+
+/* =========================
+   OFFER TOGGLE
+========================= */
+
+const offerEnabled =
+  document.getElementById("offerEnabled");
+
+const offerFields =
+  document.getElementById("offerFields");
+
+
+function toggleOfferFields(){
+
+  if(offerEnabled.checked){
+
+    offerFields.classList.add("active");
+
+  }else{
+
+    offerFields.classList.remove("active");
+
+  }
+
+}
+
+
+offerEnabled.addEventListener(
+  "change",
+  toggleOfferFields
+);
+
+
+/* =========================
+   LOAD PROJECT FOR EDITING
+========================= */
+
+function loadEditProject(){
+
+  const editData =
+    localStorage.getItem("affinityEditProject");
+
+  if(!editData){
+    return;
+  }
+
+
+  const project =
+    JSON.parse(editData);
+
+
+  editingProjectId =
+    project.id;
+
+
+  /* Update page */
+
+  document
+  .getElementById("pageTitle")
+  .textContent =
+    "Edit Project";
+
+
+  document
+  .getElementById("pageSubtitle")
+  .textContent =
+    "Update your existing real estate project.";
+
+
+  document
+  .getElementById("saveButton")
+  .textContent =
+    "Update Project";
+
+
+  /* Basic data */
+
+  document
+  .getElementById("projectName")
+  .value =
+    project.name || "";
+
+
+  document
+  .getElementById("projectLocation")
+  .value =
+    project.location || "";
+
+
+  document
+  .getElementById("projectType")
+  .value =
+    project.type || "";
+
+
+  document
+  .getElementById("projectStatus")
+  .value =
+    project.status || "";
+
+
+  document
+  .getElementById("projectDescription")
+  .value =
+    project.description || "";
+
+
+  /* Booking dates */
+
+  document
+  .getElementById("bookingStartDate")
+  .value =
+    project.bookingStartDate || "";
+
+
+  document
+  .getElementById("bookingEndDate")
+  .value =
+    project.bookingEndDate || "";
+
+
+  /* Offer data */
+
+  document
+  .getElementById("offerEnabled")
+  .checked =
+    project.offerEnabled || false;
+
+
+  document
+  .getElementById("offerTitle")
+  .value =
+    project.offerTitle || "";
+
+
+  document
+  .getElementById("offerAmount")
+  .value =
+    project.offerAmount || "";
+
+
+  document
+  .getElementById("offerDescription")
+  .value =
+    project.offerDescription || "";
+
+
+  document
+  .getElementById("offerStartDate")
+  .value =
+    project.offerStartDate || "";
+
+
+  document
+  .getElementById("offerEndDate")
+  .value =
+    project.offerEndDate || "";
+
+
+  /* Show offer fields if enabled */
+
+  toggleOfferFields();
+
+
+  /* Existing image */
+
+  if(project.image){
+
+    selectedImage =
+      project.image;
+
+
+    const preview =
+      document.getElementById("imagePreview");
+
+
+    preview.src =
+      selectedImage;
+
+
+    preview.style.display =
+      "block";
+
+
+    /* Image not required while editing */
+
+    document
+    .getElementById("projectImage")
+    .required =
+      false;
+
+  }
+
+}
+
+
+/* Run edit loader */
+
+loadEditProject();
+
+
+/* =========================
+   VALIDATE BOOKING DATES
+========================= */
+
+function validateBookingDates(){
+
+  const startDate =
+    document
+    .getElementById("bookingStartDate")
+    .value;
+
+
+  const endDate =
+    document
+    .getElementById("bookingEndDate")
+    .value;
+
+
+  if(startDate && endDate){
+
+    if(new Date(endDate) < new Date(startDate)){
+
+      alert(
+        "Booking end date cannot be earlier than the booking start date."
+      );
+
+      return false;
+
+    }
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================
+   VALIDATE OFFER DATES
+========================= */
+
+function validateOfferDates(){
+
+  /* No validation needed if offer is disabled */
+
+  if(!offerEnabled.checked){
+    return true;
+  }
+
+
+  const startDate =
+    document
+    .getElementById("offerStartDate")
+    .value;
+
+
+  const endDate =
+    document
+    .getElementById("offerEndDate")
+    .value;
+
+
+  if(startDate && endDate){
+
+    if(new Date(endDate) < new Date(startDate)){
+
+      alert(
+        "Offer end date cannot be earlier than the offer start date."
+      );
+
+      return false;
+
+    }
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================
+   SAVE / UPDATE PROJECT
+========================= */
+
+document
+.getElementById("projectForm")
+.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+
+  /* Validate booking dates */
+
+  if(!validateBookingDates()){
+    return;
+  }
+
+
+  /* Validate offer dates */
+
+  if(!validateOfferDates()){
+    return;
+  }
+
+
+  /* Get projects */
+
+  let projects =
+    JSON.parse(
+      localStorage.getItem("affinityProjects")
+    ) || [];
+
+
+  /* Create project object */
+
+  const projectData = {
+
+    id:
+      editingProjectId || Date.now(),
+
+
+    /* Basic project details */
+
+    name:
+      document
+      .getElementById("projectName")
+      .value
+      .trim(),
+
+
+    location:
+      document
+      .getElementById("projectLocation")
+      .value
+      .trim(),
+
+
+    type:
+      document
+      .getElementById("projectType")
+      .value,
+
+
+    status:
+      document
+      .getElementById("projectStatus")
+      .value,
+
+
+    description:
+      document
+      .getElementById("projectDescription")
+      .value
+      .trim(),
+
+
+    /* Optional booking details */
+
+    bookingStartDate:
+      document
+      .getElementById("bookingStartDate")
+      .value || "",
+
+
+    bookingEndDate:
+      document
+      .getElementById("bookingEndDate")
+      .value || "",
+
+
+    /* Optional offer details */
+
+    offerEnabled:
+      document
+      .getElementById("offerEnabled")
+      .checked,
+
+
+    offerTitle:
+      document
+      .getElementById("offerTitle")
+      .value
+      .trim(),
+
+
+    offerAmount:
+      document
+      .getElementById("offerAmount")
+      .value
+      .trim(),
+
+
+    offerDescription:
+      document
+      .getElementById("offerDescription")
+      .value
+      .trim(),
+
+
+    offerStartDate:
+      document
+      .getElementById("offerStartDate")
+      .value || "",
+
+
+    offerEndDate:
+      document
+      .getElementById("offerEndDate")
+      .value || "",
+
+
+    /* Project image */
+
+    image:
+      selectedImage,
+
+
+    /* Date */
+
+    createdAt:
+      new Date().toLocaleString()
+
+  };
+
+
+  /* =========================
+     UPDATE EXISTING PROJECT
+  ========================= */
+
+  if(editingProjectId){
+
+    projects =
+      projects.map(function(project){
+
+        if(project.id === editingProjectId){
+
+          return projectData;
+
+        }
+
+        return project;
+
+      });
+
+
+    document
+    .getElementById("successMessage")
+    .textContent =
+      "Project updated successfully!";
+
+  }
+
+
+  /* =========================
+     ADD NEW PROJECT
+  ========================= */
+
+  else{
+
+    projects.push(projectData);
+
+
+    document
+    .getElementById("successMessage")
+    .textContent =
+      "Project saved successfully!";
+
+  }
+
+
+  /* =========================
+     SAVE TO LOCAL STORAGE
+  ========================= */
+
+  localStorage.setItem(
+    "affinityProjects",
+    JSON.stringify(projects)
+  );
+
+
+  /* Remove edit project data */
+
+  localStorage.removeItem(
+    "affinityEditProject"
+  );
+
+
+  /* Show message */
+
+  document
+  .getElementById("successMessage")
+  .style.display =
+    "block";
+
+
+  /* Redirect */
+
+  setTimeout(function(){
+
+    window.location.href =
+      "all-projects.html";
+
+  }, 1000);
+
+});
+
+</script>
+
+</body>
+</html>

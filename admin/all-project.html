@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Affinity Admin | All Projects</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#1d3553;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+  width:280px;
+  background:#18324d;
+  color:#fff;
+  padding:30px 20px;
+  position:fixed;
+  height:100vh;
+  top:0;
+  left:0;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:900;
+  margin:10px 15px 45px;
+}
+
+.logo span{
+  color:#78a9f5;
+}
+
+.nav a{
+  display:block;
+  padding:17px 20px;
+  margin:8px 0;
+  border-radius:12px;
+  color:#c8d5e5;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.nav a:hover,
+.nav a.active{
+  background:#2865b7;
+  color:#fff;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+  margin-left:280px;
+  width:calc(100% - 280px);
+  padding:35px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.top h1{
+  font-size:34px;
+}
+
+.top p{
+  color:#6c7c8f;
+  margin-top:8px;
+}
+
+.btn{
+  border:0;
+  background:#2464b7;
+  color:#fff;
+  padding:14px 22px;
+  border-radius:12px;
+  font-weight:bold;
+  text-decoration:none;
+  cursor:pointer;
+  display:inline-block;
+  transition:.2s;
+}
+
+.btn:hover{
+  background:#174d92;
+  transform:translateY(-1px);
+}
+
+/* ================= FILTERS ================= */
+
+.filters{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr auto;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+input,
+select{
+  padding:15px;
+  border:1px solid #d9e2ec;
+  border-radius:12px;
+  font:inherit;
+  background:#fff;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:#2464b7;
+}
+
+.clear{
+  background:#fff;
+  color:#1d3553;
+  border:1px solid #d9e2ec;
+}
+
+.clear:hover{
+  background:#edf4ff;
+}
+
+.count{
+  color:#66788a;
+  margin-bottom:20px;
+  font-weight:bold;
+}
+
+/* ================= PROJECT GRID ================= */
+
+.projects{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e1e8f0;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(20,50,80,.05);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 35px rgba(20,50,80,.12);
+}
+
+.image{
+  height:210px;
+  width:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.no-image{
+  height:210px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e8eef5;
+  color:#7c8c9e;
+  font-size:55px;
+}
+
+.body{
+  padding:20px;
+}
+
+.title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+
+h3{
+  font-size:20px;
+  line-height:1.4;
+}
+
+.badge{
+  padding:7px 10px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:bold;
+  white-space:nowrap;
+  text-transform:uppercase;
+}
+
+.status-ongoing{
+  background:#e8f2ff;
+  color:#2464b7;
+}
+
+.status-upcoming{
+  background:#f1eaff;
+  color:#7654b8;
+}
+
+.status-completed{
+  background:#e4f7ed;
+  color:#18865b;
+}
+
+.status-active{
+  background:#e8f2ff;
+  color:#2464b7;
+}
+
+.status-inactive{
+  background:#eef0f3;
+  color:#607080;
+}
+
+.info{
+  color:#697b8d;
+  margin-top:12px;
+  font-size:14px;
+}
+
+.offer{
+  margin-top:15px;
+  background:#fff5df;
+  color:#a46400;
+  padding:10px;
+  border-radius:9px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* ================= ACTIONS ================= */
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin-top:20px;
+}
+
+.view,
+.edit,
+.delete{
+  text-align:center;
+  padding:11px 8px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:bold;
+  border:0;
+  cursor:pointer;
+  font-size:13px;
+  transition:.2s;
+}
+
+.view{
+  background:#edf6ff;
+  color:#1764ad;
+}
+
+.view:hover{
+  background:#dceeff;
+}
+
+.edit{
+  background:#eaf2ff;
+  color:#2464b7;
+}
+
+.edit:hover{
+  background:#d8e8ff;
+}
+
+.delete{
+  background:#fff0f0;
+  color:#c64040;
+}
+
+.delete:hover{
+  background:#ffe0e0;
+}
+
+.empty{
+  grid-column:1/-1;
+  background:#fff;
+  border:1px dashed #ccd7e3;
+  border-radius:20px;
+  padding:80px 20px;
+  text-align:center;
+  color:#68798b;
+}
+
+.empty h2{
+  color:#1d3553;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(10,25,45,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:9999;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(800px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:20px;
+  position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.close{
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  color:#1d3553;
+  font-size:22px;
+  cursor:pointer;
+  z-index:2;
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.modal-image{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  display:block;
+}
+
+.modal-no-image{
+  width:100%;
+  height:250px;
+  background:#e8eef5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+}
+
+.modal-content{
+  padding:30px;
+}
+
+.modal-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.modal-title h2{
+  font-size:30px;
+}
+
+.details-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.detail{
+  background:#f6f9fc;
+  padding:15px;
+  border-radius:12px;
+}
+
+.detail-label{
+  display:block;
+  color:#7a8998;
+  font-size:11px;
+  font-weight:bold;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.detail-value{
+  color:#1d3553;
+  font-size:15px;
+  word-break:break-word;
+}
+
+.description-box{
+  margin-top:20px;
+  padding:18px;
+  background:#f6f9fc;
+  border-radius:12px;
+}
+
+.description-box h4{
+  margin-bottom:10px;
+}
+
+.modal-actions{
+  display:flex;
+  gap:12px;
+  margin-top:25px;
+}
+
+.modal-actions .btn{
+  flex:1;
+  text-align:center;
+}
+
+.modal-delete{
+  background:#fff0f0;
+  color:#c64040;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+  .projects{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    position:static;
+    width:100%;
+    height:auto;
+  }
+
+  .app{
+    display:block;
+  }
+
+  .main{
+    margin:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .filters{
+    grid-template-columns:1fr;
+  }
+
+  .projects{
+    grid-template-columns:1fr;
+  }
+
+  .top{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+  }
+
+  .details-grid{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+  .modal-content{
+    padding:20px;
+  }
+
+  .modal-image{
+    height:220px;
+  }
+
+  .modal-title h2{
+    font-size:24px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+  <div class="logo">
+    AFFINITY <span>ADMIN</span>
+  </div>
+
+  <nav class="nav">
+    <a href="admin.html">🏠 Dashboard</a>
+    <a href="add-project.html">➕ Add Project</a>
+
+    <!-- IMPORTANT: Correct filename -->
+    <a class="active" href="all-project.html">🏢 All Projects</a>
+
+    <a href="leads.html">👥 Leads</a>
+  </nav>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+  <div class="top">
+
+    <div>
+      <h1>All Projects</h1>
+      <p>Manage, view, edit and delete your Affinity Realty projects.</p>
+    </div>
+
+    <a class="btn" href="add-project.html">
+      + Add New Project
+    </a>
+
+  </div>
+
+
+  <!-- FILTERS -->
+
+  <div class="filters">
+
+    <input
+      id="search"
+      placeholder="Search project name, location or type..."
+    >
+
+    <select id="statusFilter">
+      <option value="">All Status</option>
+      <option value="Ongoing">Ongoing</option>
+      <option value="Upcoming">Upcoming</option>
+      <option value="Completed">Completed</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+
+    <select id="typeFilter">
+      <option value="">All Property Types</option>
+      <option>Residential Project</option>
+      <option>Commercial Project</option>
+      <option>Plotted Development</option>
+      <option>Villa Project</option>
+      <option>Apartment</option>
+      <option>Mixed Use Project</option>
+    </select>
+
+    <button class="btn clear" type="button" onclick="clearFilters()">
+      Clear
+    </button>
+
+  </div>
+
+
+  <div class="count" id="count">
+    Showing 0 project(s)
+  </div>
+
+  <div class="projects" id="projectsBox"></div>
+
+</main>
+
+</div>
+
+
+<!-- ================= PROJECT DETAILS MODAL ================= -->
+
+<div class="modal" id="projectModal">
+
+  <div class="modal-box">
+
+    <button class="close" type="button" onclick="closeDetails()">
+      ×
+    </button>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* ================= STORAGE ================= */
+
+function getProjects(){
+  try{
+    return JSON.parse(
+      localStorage.getItem("affinityProjects") || "[]"
+    );
+  }catch(error){
+    console.error("Project storage error:",error);
+    return [];
+  }
+}
+
+function saveProjects(projects){
+  localStorage.setItem(
+    "affinityProjects",
+    JSON.stringify(projects)
+  );
+}
+
+
+/* ================= SECURITY ================= */
+
+function escapeHtml(text=""){
+  const div=document.createElement("div");
+  div.textContent=String(text);
+  return div.innerHTML;
+}
+
+function escapeAttribute(text=""){
+  return escapeHtml(text)
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* ================= STATUS CLASS ================= */
+
+function getStatusClass(status=""){
+  return "status-" + String(status)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g,"-");
+}
+
+
+/* ================= FORMAT DATE ================= */
+
+function formatDate(dateValue){
+
+  if(!dateValue) return "Not specified";
+
+  const date=new Date(dateValue);
+
+  if(isNaN(date.getTime())){
+    return escapeHtml(dateValue);
+  }
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+}
+
+
+/* ================= RENDER PROJECTS ================= */
+
+function renderProjects(){
+
+  const search=document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const status=document
+    .getElementById("statusFilter")
+    .value;
+
+  const type=document
+    .getElementById("typeFilter")
+    .value;
+
+
+  let projects=getProjects();
+
+
+  projects=projects.filter(p=>{
+
+    const searchable=[
+      p.name || "",
+      p.location || "",
+      p.propertyType || "",
+      p.description || "",
+      p.status || ""
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    return (
+      (!search || searchable.includes(search))
+      &&
+      (!status || p.status===status)
+      &&
+      (!type || p.propertyType===type)
+    );
+
+  });
+
+
+  projects.sort((a,b)=>{
+    return (b.updatedAt || b.createdAt || 0)
+      -
+      (a.updatedAt || a.createdAt || 0);
+  });
+
+
+  document.getElementById("count").textContent=
+    `Showing ${projects.length} project(s)`;
+
+
+  const box=document.getElementById("projectsBox");
+
+
+  /* EMPTY */
+
+  if(!projects.length){
+
+    box.innerHTML=`
+      <div class="empty">
+
+        <div style="font-size:55px;margin-bottom:15px">
+          🏢
+        </div>
+
+        <h2>No Projects Found</h2>
+
+        <p style="margin:12px 0 25px">
+          No project is currently available.
+          Click below to add your first project.
+        </p>
+
+        <a class="btn" href="add-project.html">
+          + Add Project
+        </a>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /* PROJECT CARDS */
+
+  box.innerHTML=projects.map(p=>{
+
+    const safeId=escapeAttribute(p.id || "");
+
+    const imageHtml=p.image
+      ?`
+        <img
+          class="image"
+          src="${escapeAttribute(p.image)}"
+          alt="${escapeAttribute(p.name || "Project Image")}"
+        >
+      `
+      :`
+        <div class="no-image">🏢</div>
+      `;
+
+
+    const offerHtml=
+      p.offer &&
+      p.offer.enabled &&
+      (p.offer.title || p.offer.discount)
+      ?`
+        <div class="offer">
+          🎉
+          <b>${escapeHtml(p.offer.title || "Special Offer")}</b>
+          ${p.offer.discount
+            ?`<br>${escapeHtml(p.offer.discount)}`
+            :""
+          }
+        </div>
+      `
+      :"";
+
+
+    return `
+
+      <div class="card">
+
+        ${imageHtml}
+
+        <div class="body">
+
+          <div class="title-row">
+
+            <h3>
+              ${escapeHtml(p.name || "Untitled Project")}
+            </h3>
+
+            <span class="badge ${getStatusClass(p.status)}">
+              ${escapeHtml(p.status || "Active")}
+            </span>
+
+          </div>
+
+
+          <div class="info">
+            📍 ${escapeHtml(p.location || "No location")}
+          </div>
+
+          <div class="info">
+            🏠 ${escapeHtml(p.propertyType || "Not specified")}
+          </div>
+
+
+          ${
+            p.price
+            ?`
+              <div class="info">
+                💰 ${escapeHtml(p.price)}
+              </div>
+            `
+            :""
+          }
+
+
+          ${offerHtml}
+
+
+          <div class="actions">
+
+            <!-- VIEW DETAILS -->
+            <button
+              class="view"
+              type="button"
+              onclick="viewProject('${safeId}')"
+            >
+              👁 View
+            </button>
+
+
+            <!-- EDIT PROJECT -->
+            <a
+              class="edit"
+              href="add-project.html?edit=${encodeURIComponent(p.id || "")}"
+            >
+              ✏️ Edit
+            </a>
+
+
+            <!-- DELETE PROJECT -->
+            <button
+              class="delete"
+              type="button"
+              onclick="deleteProject('${safeId}')"
+            >
+              🗑 Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+/* ================= VIEW DETAILS ================= */
+
+function viewProject(id){
+
+  const project=getProjects()
+    .find(p=>String(p.id)===String(id));
+
+  if(!project){
+    alert("Project not found.");
+    return;
+  }
+
+
+  const modal=document.getElementById("projectModal");
+  const modalBody=document.getElementById("modalBody");
+
+
+  const imageHtml=project.image
+    ?`
+      <img
+        class="modal-image"
+        src="${escapeAttribute(project.image)}"
+        alt="${escapeAttribute(project.name || "Project")}"
+      >
+    `
+    :`
+      <div class="modal-no-image">
+        🏢
+      </div>
+    `;
+
+
+  const offerText=
+    project.offer &&
+    project.offer.enabled
+    ?`
+      ${project.offer.title || "Special Offer"}
+      ${project.offer.discount
+        ?` - ${project.offer.discount}`
+        :""
+      }
+    `
+    :"No active offer";
+
+
+  modalBody.innerHTML=`
+
+    ${imageHtml}
+
+    <div class="modal-content">
+
+      <div class="modal-title">
+
+        <div>
+
+          <h2>
+            ${escapeHtml(project.name || "Untitled Project")}
+          </h2>
+
+          <p style="color:#6c7c8f;margin-top:8px">
+            ${escapeHtml(project.location || "Location not specified")}
+          </p>
+
+        </div>
+
+        <span class="badge ${getStatusClass(project.status)}">
+          ${escapeHtml(project.status || "Active")}
+        </span>
+
+      </div>
+
+
+      <div class="details-grid">
+
+        <div class="detail">
+          <span class="detail-label">
+            Property Type
+          </span>
+
+          <div class="detail-value">
+            ${escapeHtml(project.propertyType || "Not specified")}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Status
+          </span>
+
+          <div class="detail-value">
+            ${escapeHtml(project.status || "Not specified")}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Location
+          </span>
+
+          <div class="detail-value">
+            ${escapeHtml(project.location || "Not specified")}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Price
+          </span>
+
+          <div class="detail-value">
+            ${escapeHtml(project.price || "Not specified")}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Booking Starts
+          </span>
+
+          <div class="detail-value">
+            ${formatDate(
+              project.bookingStartDate ||
+              project.bookingStart
+            )}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Booking Ends
+          </span>
+
+          <div class="detail-value">
+            ${formatDate(
+              project.bookingEndDate ||
+              project.bookingEnd
+            )}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Offer
+          </span>
+
+          <div class="detail-value">
+            ${escapeHtml(offerText)}
+          </div>
+        </div>
+
+
+        <div class="detail">
+          <span class="detail-label">
+            Created
+          </span>
+
+          <div class="detail-value">
+            ${formatDate(project.createdAt)}
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="description-box">
+
+        <h4>Project Description</h4>
+
+        <div class="detail-value">
+          ${
+            escapeHtml(
+              project.description ||
+              "No project description available."
+            )
+          }
+        </div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <a
+          class="btn"
+          href="add-project.html?edit=${encodeURIComponent(project.id || "")}"
+        >
+          ✏️ Edit Project
+        </a>
+
+        <button
+          class="btn modal-delete"
+          type="button"
+          onclick="deleteProjectFromModal('${escapeAttribute(project.id || "")}')"
+        >
+          🗑 Delete Project
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  modal.classList.add("show");
+  document.body.style.overflow="hidden";
+
+}
+
+
+/* ================= CLOSE DETAILS ================= */
+
+function closeDetails(){
+
+  document
+    .getElementById("projectModal")
+    .classList
+    .remove("show");
+
+  document.body.style.overflow="auto";
+
+}
+
+
+/* Close when clicking outside */
+
+document
+  .getElementById("projectModal")
+  .addEventListener("click",function(e){
+
+    if(e.target===this){
+      closeDetails();
+    }
+
+  });
+
+
+/* ================= DELETE ================= */
+
+function deleteProject(id){
+
+  const project=getProjects()
+    .find(p=>String(p.id)===String(id));
+
+
+  if(!project){
+    return;
+  }
+
+
+  const confirmDelete=confirm(
+    `Delete "${project.name}"?\n\nThis action cannot be undone.`
+  );
+
+
+  if(!confirmDelete){
+    return;
+  }
+
+
+  const updatedProjects=getProjects()
+    .filter(p=>String(p.id)!==String(id));
+
+
+  saveProjects(updatedProjects);
+
+  renderProjects();
+
+  alert("Project deleted successfully.");
+
+}
+
+
+function deleteProjectFromModal(id){
+
+  const project=getProjects()
+    .find(p=>String(p.id)===String(id));
+
+  if(!project){
+    return;
+  }
+
+
+  const confirmDelete=confirm(
+    `Delete "${project.name}"?\n\nThis action cannot be undone.`
+  );
+
+
+  if(!confirmDelete){
+    return;
+  }
+
+
+  const updatedProjects=getProjects()
+    .filter(p=>String(p.id)!==String(id));
+
+
+  saveProjects(updatedProjects);
+
+  closeDetails();
+
+  renderProjects();
+
+  alert("Project deleted successfully.");
+
+}
+
+
+/* ================= CLEAR FILTERS ================= */
+
+function clearFilters(){
+
+  document.getElementById("search").value="";
+  document.getElementById("statusFilter").value="";
+  document.getElementById("typeFilter").value="";
+
+  renderProjects();
+
+}
+
+
+/* ================= EVENTS ================= */
+
+document
+  .getElementById("search")
+  .addEventListener("input",renderProjects);
+
+
+document
+  .getElementById("statusFilter")
+  .addEventListener("change",renderProjects);
+
+
+document
+  .getElementById("typeFilter")
+  .addEventListener("change",renderProjects);
+
+
+/* Update if another browser tab changes projects */
+
+window.addEventListener("storage",renderProjects);
+
+
+/* Initial render */
+
+renderProjects();
+
+</script>
+
+</body>
+</html>

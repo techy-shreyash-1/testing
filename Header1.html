@@ -1,0 +1,950 @@
+<!-- ════ SECTION 1: Header ════ -->
+<style>
+  /* ---- Fix: right-side gray gap on mobile ----
+     Root cause: html/body render narrower than the real device width
+     (common WordPress/page-builder mobile fallback), while position:fixed
+     elements (bottom nav, sheet) are pinned to the true viewport and so
+     stay full width — leaving a gray strip next to everything else.
+     Forcing html/body to the actual device width fixes it site-wide. */
+  html {
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: clip;
+  }
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    overflow-x: clip;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
+    border-bottom: 1px solid #e4e9ef;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    width: 100%;
+  }
+  .hdr-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px 16px 0;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .hdr-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .hdr-logo-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1c5ea8, #0d2846);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .hdr-logo-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hdr-logo-text .name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0d2846;
+    letter-spacing: .03em;
+    line-height: 1.1;
+  }
+  .hdr-logo-text .tag {
+    font-size: .68rem;
+    color: #5b6b7c;
+    letter-spacing: .02em;
+  }
+  .hdr-right {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+  .hdr-links {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    list-style: none;
+  }
+  .hdr-links a {
+    font-size: .93rem;
+    font-weight: 500;
+    color: #1c2b3a;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 6px;
+  }
+  .hdr-links a.active {
+    color: #1c5ea8;
+    font-weight: 700;
+  }
+  .hdr-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #1c5ea8;
+  }
+  .hdr-links a:hover {
+    color: #1c5ea8;
+  }
+  .hdr-link-icon {
+    display: none;
+  }
+  .hdr-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: .95rem;
+    border: 1.5px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .hdr-btn-primary {
+    background: #1c5ea8;
+    color: #ffffff;
+  }
+  .hdr-btn-primary:hover {
+    background: #0d2846;
+    box-shadow: 0 10px 24px rgba(13,40,70,.28);
+    transform: translateY(-2px);
+  }
+  .hdr-btn-login {
+    background: transparent;
+    color: #1c5ea8;
+    border-color: #1c5ea8;
+    padding: 11px 20px;
+  }
+  .hdr-btn-login:hover {
+    background: #1c5ea8;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .hdr-burger {
+    display: none;
+    background: none;
+    border: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .hdr-burger span {
+    width: 24px;
+    height: 2px;
+    background: #0d2846;
+    display: block;
+  }
+  .hdr-btns-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  @media (max-width: 760px) {
+    .hdr-nav {
+      flex-wrap: nowrap;
+      padding: 14px 20px;
+    }
+    .hdr-right {
+      gap: 10px;
+      width: auto;
+      justify-content: flex-end;
+    }
+    .hdr-links {
+      position: fixed;
+      top: auto;
+      bottom: 70px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 20px 32px;
+      gap: 18px;
+      border-top: 1px solid #e4e9ef;
+      border-bottom: none;
+      box-shadow: 0 -8px 24px rgba(10,31,61,0.12);
+      display: none;
+    }
+    .hdr-links.open {
+      display: flex;
+    }
+    .hdr-links a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hdr-link-icon {
+      display: inline-flex;
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+    .hdr-burger {
+      display: none;
+    }
+    .hdr-logo-mark {
+      width: 32px;
+      height: 32px;
+    }
+    .hdr-logo-text .name {
+      font-size: 1rem;
+    }
+    .hdr-logo-text .tag {
+      font-size: .62rem;
+    }
+    .hdr-btn {
+      padding: 10px 16px;
+      font-size: .85rem;
+    }
+    .hdr-btn-login {
+      padding: 9px 14px;
+      font-size: .85rem;
+      width: 90px;
+      justify-content: center;
+    }
+    .hdr-btn-primary {
+      display: none;
+    }
+  }
+  @media (max-width: 420px) {
+    .hdr-logo-text .tag {
+      font-size: .58rem;
+    }
+    .hdr-btn {
+      padding: 9px 13px;
+      font-size: .8rem;
+    }
+  }
+
+  /* ---- Mobile-only bottom nav bar ---- */
+  .hdr-bottom-nav {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .hdr-bottom-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-top: 1px solid #e4e9ef;
+      padding: 8px 14px calc(8px + env(safe-area-inset-bottom));
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      width: 100vw;
+      max-width: 100vw;
+      /* FIX: split overflow so the raised call button (negative margin-top)
+         isn't clipped at the top, while still preventing horizontal gray gap */
+      overflow-x: hidden;
+      overflow-y: visible;
+    }
+    .hdr-bottom-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: #5b6b7c;
+      text-decoration: none;
+      font-size: .68rem;
+      font-weight: 600;
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 100%;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hdr-bottom-item svg {
+      width: 22px;
+      height: 22px;
+      stroke: #5b6b7c;
+      fill: none;
+      stroke-width: 2;
+    }
+    .hdr-bottom-item.active,
+    .hdr-bottom-item:hover {
+      color: #1c5ea8;
+    }
+    .hdr-bottom-item.active svg,
+    .hdr-bottom-item:hover svg {
+      stroke: #1c5ea8;
+    }
+    .hdr-bottom-call {
+      flex: 0 0 auto;
+      width: 62px;
+      margin-top: -15px;
+      padding-bottom: 0;
+      margin-bottom: calc(-8px - env(safe-area-inset-bottom));
+      overflow: visible;
+    }
+    .hdr-bottom-call-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #1c5ea8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(28,94,168,0.4);
+      border: 4px solid #ffffff;
+      margin: 0 auto;
+    }
+    .hdr-bottom-call-circle svg {
+      width: 16px;
+      height: 16px;
+      stroke: #ffffff;
+      flex-shrink: 0;
+    }
+    body {
+      padding-bottom: 70px;
+    }
+  }
+
+  /* ---- Mobile-only "All sections" bottom sheet ---- */
+  .hdr-sheet-backdrop {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .hdr-sheet-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 35, 0.45);
+      z-index: 199;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .22s ease;
+    }
+    .hdr-sheet-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .hdr-sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+      background: #ffffff;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -10px 30px rgba(10,31,61,0.18);
+      padding: 12px 24px calc(24px + env(safe-area-inset-bottom));
+      max-height: 78vh;
+      overflow-y: auto;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      transform: translateY(100%);
+      transition: transform .26s ease;
+      width: 100%;
+    }
+    .hdr-sheet-backdrop.open .hdr-sheet {
+      transform: translateY(0);
+    }
+    .hdr-sheet-handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      background: #d5dbe3;
+      margin: 6px auto 18px;
+    }
+    .hdr-sheet-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 0 18px;
+    }
+    .hdr-sheet-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0d2846;
+      margin: 0;
+    }
+    .hdr-sheet-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #f1f4f8;
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+    }
+    .hdr-sheet-close:hover {
+      background: #e4e9ef;
+    }
+    .hdr-sheet-close svg {
+      width: 15px;
+      height: 15px;
+      stroke: #14202e;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      display: block;
+    }
+    .hdr-sheet-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 14px 0;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .hdr-sheet-item + .hdr-sheet-item {
+      border-top: 1px solid #eef1f5;
+    }
+    .hdr-sheet-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      stroke: #0d2846;
+      fill: none;
+      stroke-width: 2;
+    }
+    .hdr-sheet-label {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #14202e;
+    }
+  }
+</style>
+
+<header class="hdr" id="n205">
+  <div class="hdr-nav">
+    <a href="/home" class="hdr-logo">
+      <span class="hdr-logo-mark">
+        <img src="http://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/Affinity.png" alt="Affinity Realty Logo">
+      </span>
+      <span class="hdr-logo-text">
+        <div class="name">AFFINITY REALTY</div>
+        <div class="tag">Your gateway to a richer life</div>
+      </span>
+    </a>
+    <div class="hdr-right">
+      <nav>
+        <ul class="hdr-links" id="hdrLinks">
+          <li><a href="/home" class="active"><svg class="hdr-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg>Home</a></li>
+          <li><a href="/projects"><svg class="hdr-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="9" width="16" height="12"/><path d="M9 21V9M4 9l8-6 8 6"/></svg>Projects</a></li>
+          <li><a href="/services"><svg class="hdr-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Services</a></li>
+          <li><a href="/gallery"><svg class="hdr-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Gallery</a></li>
+          <li><a href="/about-us"><svg class="hdr-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>About Us</a></li>
+          <li><a href="https://affinityrealty.orgscale.in/referral/"><svg class="hdr-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Referral</a></li>
+        </ul>
+      </nav>
+      <div class="hdr-btns-wrap">
+        <a href="https://affinityrealty.orgscale.in/contact/" class="hdr-btn hdr-btn-primary">Contact Us</a>
+        <a href="https://orgscale.in/admin-login/" class="hdr-btn hdr-btn-login" target="_blank" rel="noopener noreferrer">Login</a>
+        <button class="hdr-burger" id="hdrBurger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile-only bottom nav bar -->
+<nav class="hdr-bottom-nav" aria-label="Mobile bottom navigation" id="n206">
+  <a href="/home" class="hdr-bottom-item active">
+    <svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg>
+    Home
+  </a>
+  <a href="/gallery" class="hdr-bottom-item">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+    Gallery
+  </a>
+  <a href="tel:+919284680760" class="hdr-bottom-item hdr-bottom-call" aria-label="Call">
+    <span class="hdr-bottom-call-circle">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </span>
+  </a>
+  <a href="https://affinityrealty.orgscale.in/contact/" class="hdr-bottom-item">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" opacity="0"/><path d="M21 8l-9 6-9-6"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+    Contact Us
+  </a>
+  <button class="hdr-bottom-item" id="hdrBottomMenuBtn" aria-label="Menu">
+    <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    Menu
+  </button>
+</nav>
+
+<!-- Mobile-only "All sections" bottom sheet -->
+<div class="hdr-sheet-backdrop" id="hdrSheetBackdrop" id="n207" >
+  <div class="hdr-sheet" id="hdrSheet" role="dialog" aria-label="All sections">
+    <div class="hdr-sheet-handle"></div>
+    <div class="hdr-sheet-top">
+      <h3 class="hdr-sheet-title">All sections</h3>
+      <button class="hdr-sheet-close" id="hdrSheetClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24"><path d="M6 6 18 18M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <a href="/home" class="hdr-sheet-item">
+      <svg class="hdr-sheet-icon" viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg>
+      <span class="hdr-sheet-label">Home</span>
+    </a>
+
+    <a href="/projects" class="hdr-sheet-item">
+      <svg class="hdr-sheet-icon" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="12"/><path d="M9 21V9M4 9l8-6 8 6"/></svg>
+      <span class="hdr-sheet-label">Projects</span>
+    </a>
+
+    <a href="/services" class="hdr-sheet-item">
+      <svg class="hdr-sheet-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span class="hdr-sheet-label">Services</span>
+    </a>
+
+    <a href="/gallery" class="hdr-sheet-item">
+      <svg class="hdr-sheet-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      <span class="hdr-sheet-label">Gallery</span>
+    </a>
+
+    <a href="https://affinityrealty.orgscale.in/referral/" class="hdr-sheet-item">
+      <svg class="hdr-sheet-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="hdr-sheet-label">Referral</span>
+    </a>
+
+    <a href="/about-us" class="hdr-sheet-item">
+      <svg class="hdr-sheet-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span class="hdr-sheet-label">About Us</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  // Header JavaScript
+  (function() {
+    var burger = document.getElementById('hdrBurger');
+    var navLinks = document.getElementById('hdrLinks');
+    var bottomMenuBtn = document.getElementById('hdrBottomMenuBtn');
+    var sheetBackdrop = document.getElementById('hdrSheetBackdrop');
+    var sheet = document.getElementById('hdrSheet');
+    var sheetClose = document.getElementById('hdrSheetClose');
+    
+    if (burger && navLinks) {
+      burger.addEventListener('click', function() {
+        navLinks.classList.toggle('open');
+      });
+      
+      navLinks.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('open');
+        });
+      });
+    }
+
+    // Mobile bottom-nav "Menu" button opens the "All sections" bottom sheet
+    if (bottomMenuBtn && sheetBackdrop) {
+      bottomMenuBtn.addEventListener('click', function() {
+        sheetBackdrop.classList.add('open');
+      });
+
+      sheetBackdrop.addEventListener('click', function(e) {
+        if (e.target === sheetBackdrop) {
+          sheetBackdrop.classList.remove('open');
+        }
+      });
+
+      if (sheetClose) {
+        sheetClose.addEventListener('click', function() {
+          sheetBackdrop.classList.remove('open');
+        });
+      }
+
+      sheetBackdrop.querySelectorAll('.hdr-sheet-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          sheetBackdrop.classList.remove('open');
+        });
+      });
+    }
+
+    // Active nav link highlight on scroll
+    var sections = document.querySelectorAll('section[id]');
+    var navAnchors = document.querySelectorAll('.hdr-links a');
+    
+    window.addEventListener('scroll', function() {
+      var current = '';
+      sections.forEach(function(sec) {
+        var top = sec.offsetTop - 120;
+        if (window.scrollY >= top) current = sec.getAttribute('id');
+      });
+      navAnchors.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    });
+  })();
+</script>
+
+
+<!-- neha cta -->
+
+
+<style>
+    /* Sticky Container - Desktop & Mobile Base */
+    .sizo-sticky-buttons {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        display: flex;
+        flex-direction: row; /* Horizontal layout */
+        align-items: flex-end;
+        gap: 15px;
+        z-index: 99999;
+        font-family: 'DM Sans', 'Inter', sans-serif;
+        pointer-events: none;
+    }
+
+    /* Base Float Button Styles */
+    .sizo-float-btn {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        pointer-events: auto;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(26, 18, 9, 0.2);
+    }
+
+    /* Pill buttons (Guide, Order, Inquiry, SMART ASSISTANT) */
+    .sizo-pill-btn {
+        height: 45px;
+        border-radius: 35px;
+        padding: 0 16px;
+        width: auto;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .sizo-pill-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+        z-index: 2;
+    }
+
+    .sizo-pill-text {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        z-index: 2;
+        color: #ffffff;
+    }
+
+    /* WhatsApp Circle button */
+    .sizo-circle-btn {
+        width: 60px;
+        height: 60px;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .sizo-circle-btn svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+        z-index: 2;
+    }
+
+    /* --- Pulsing Animations --- */
+    @keyframes sizo-pulse-purple {
+        0% { box-shadow: 0 0 0 0 rgba(128, 90, 213, 0.7); transform: scale(1); }
+        50% { transform: scale(1.03); }
+        70% { box-shadow: 0 0 0 20px rgba(128, 90, 213, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(128, 90, 213, 0); transform: scale(1); }
+    }
+
+    @keyframes sizo-pulse-blue {
+        0% { box-shadow: 0 0 0 0 rgba(44, 125, 160, 0.7); transform: scale(1); }
+        50% { transform: scale(1.03); }
+        70% { box-shadow: 0 0 0 20px rgba(44, 125, 160, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(44, 125, 160, 0); transform: scale(1); }
+    }
+
+    @keyframes sizo-pulse-orange {
+        0% { box-shadow: 0 0 0 0 rgba(228, 87, 18, 0.7); transform: scale(1); }
+        50% { transform: scale(1.03); }
+        70% { box-shadow: 0 0 0 20px rgba(228, 87, 18, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(228, 87, 18, 0); transform: scale(1); }
+    }
+
+    @keyframes sizo-pulse-green {
+        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); transform: scale(1); }
+        50% { transform: scale(1.05); }
+        70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); transform: scale(1); }
+    }
+
+    /* Pulse for Smart Assistant (Teal) */
+    @keyframes sizo-pulse-teal {
+        0% { box-shadow: 0 0 0 0 rgba(20, 168, 168, 0.7); transform: scale(1); }
+        50% { transform: scale(1.03); }
+        70% { box-shadow: 0 0 0 20px rgba(20, 168, 168, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(20, 168, 168, 0); transform: scale(1); }
+    }
+
+    /* 1. Chair Buying Guide (Purple) */
+    .sizo-btn-guide {
+        background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+        color: #ffffff;
+        animation: sizo-pulse-purple 2.5s infinite;
+        animation-delay: 0s;
+    }
+    .sizo-btn-guide:hover {
+        animation: none;
+        transform: scale(1.05) translateY(-3px);
+        background: linear-gradient(135deg, #6D28D9 0%, #8B5CF6 100%);
+    }
+
+    /* 2. Order Now Button (Blue) */
+    .sizo-btn-order {
+        background: linear-gradient(135deg, #2c7da0 0%, #1f5068 100%);
+        color: #ffffff;
+        animation: sizo-pulse-blue 2.5s infinite;
+        animation-delay: 0.6s;
+    }
+    .sizo-btn-order:hover {
+        animation: none;
+        transform: scale(1.05) translateY(-3px);
+        background: linear-gradient(135deg, #1f5068 0%, #2c7da0 100%);
+    }
+
+    /* 3. Inquiry Button (Orange) */
+    .sizo-btn-inquiry {
+        background: linear-gradient(135deg, #E45712 0%, #c5480c 100%);
+        color: #ffffff;
+        animation: sizo-pulse-orange 2.5s infinite;
+        animation-delay: 1.2s;
+    }
+    .sizo-btn-inquiry:hover {
+        animation: none;
+        transform: scale(1.05) translateY(-3px);
+        background: linear-gradient(135deg, #c5480c 0%, #E45712 100%);
+    }
+
+    /* 4. WhatsApp Button (Green) */
+    .sizo-btn-whatsapp {
+        background: #25D366;
+        color: #ffffff;
+        animation: sizo-pulse-green 2.5s infinite;
+        animation-delay: 1.8s;
+    }
+    .sizo-btn-whatsapp:hover {
+        animation: none;
+        transform: scale(1.1) translateY(-3px);
+        background: #128C7E;
+    }
+
+    /* 5. NEW: SMART ASSISTANT button (Teal) */
+    .sizo-btn-smart {
+        background: linear-gradient(135deg, #14a8a8 0%, #0e6b6b 100%);
+        color: #ffffff;
+        animation: sizo-pulse-teal 2.5s infinite;
+        animation-delay: 0.3s;
+    }
+    .sizo-btn-smart:hover {
+        animation: none;
+        transform: scale(1.05) translateY(-3px);
+        background: linear-gradient(135deg, #0e6b6b 0%, #14a8a8 100%);
+    }
+
+    /* Tooltip/Label ONLY for WhatsApp Button (opens UPWARDS) */
+    .sizo-circle-btn::before {
+        content: attr(data-label);
+        position: absolute;
+        bottom: 75px;
+        right: 50%;
+        transform: translateX(50%);
+        background: rgba(0,0,0,0.85);
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 30px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    .sizo-circle-btn::after {
+        content: '';
+        position: absolute;
+        bottom: 69px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 0;
+        height: 0;
+        border-top: 6px solid rgba(0,0,0,0.85);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .sizo-circle-btn:hover::before {
+        opacity: 1;
+        visibility: visible;
+        bottom: 70px;
+    }
+    
+    .sizo-circle-btn:hover::after {
+        opacity: 1;
+        visibility: visible;
+        bottom: 64px;
+    }
+
+    /* =========================================
+       Mobile Responsive Rules (5 buttons)
+       ========================================= */
+    @media (max-width: 768px) {
+        .sizo-sticky-buttons {
+            bottom: 90px;
+            right: 15px;
+            gap: 8px;
+        }
+        
+        .sizo-pill-btn {
+            height: 38px;
+            padding: 0 10px;
+            gap: 4px;
+        }
+
+        .sizo-pill-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .sizo-pill-text {
+            font-size: 11px;
+        }
+
+        .sizo-circle-btn { 
+            width: 45px;
+            height: 45px;
+        }
+
+        .sizo-circle-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .sizo-circle-btn::before,
+        .sizo-circle-btn::after {
+            display: none;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .sizo-sticky-buttons {
+            gap: 6px;
+            right: 12px;
+            bottom: 90px;
+        }
+        .sizo-pill-btn {
+            padding: 0 8px;
+        }
+        .sizo-pill-text {
+            font-size: 10px;
+        }
+        .sizo-pill-btn svg {
+            width: 12px;
+            height: 12px;
+        }
+        .sizo-circle-btn {
+            width: 42px;
+            height: 42px;
+        }
+        .sizo-circle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+</style>
+
+<div class="sizo-sticky-buttons" id="n208">
+    
+    <!-- Button 1: Chair Buying Guide (Pill Shape) -->
+    <a href="https://affinityrealty.orgscale.in/referral/" rel="noopener noreferrer" class="sizo-float-btn sizo-pill-btn sizo-btn-guide" aria-label="Chair Buying Guide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+        <span class="sizo-pill-text">Referral</span>
+    </a>
+
+    <!-- Button 2: Order (Pill Shape) -->
+    <!--<a href="" rel="noopener noreferrer" class="sizo-float-btn sizo-pill-btn sizo-btn-order" aria-label="Order Now">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.33 0-4.29-1.6-4.84-3.75l1.74-.65c.42 1.44 1.78 2.4 3.1 2.4 1.32 0 2.68-.96 3.1-2.4l1.74.65C16.29 11.4 14.33 13 12 13z"/>
+        </svg>
+        <span class="sizo-pill-text">Order</span>
+    </a>-->
+
+    <!-- Button 3: Inquiry (Pill Shape) -->
+    <a href="https://affinityrealty.orgscale.in/contact/" rel="noopener noreferrer" class="sizo-float-btn sizo-pill-btn sizo-btn-inquiry" aria-label="Inquiry">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        <span class="sizo-pill-text">Inquiry</span>
+    </a>
+
+    <!-- Button 5: Smart Assistant (Pill Shape) - NEW URL -->
+   <a href="https://affinityrealty.orgscale.in/chatbot/" rel="noopener noreferrer" class="sizo-float-btn sizo-pill-btn sizo-btn-smart" aria-label="Smart Assistant">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+        </svg>
+        <span class="sizo-pill-text">Assistant</span>
+    <!-- Button 4: WhatsApp (Circle Shape) -->
+    <a href="https://wa.me/919284680760" target="_blank" rel="noopener noreferrer" class="sizo-float-btn sizo-circle-btn sizo-btn-whatsapp" data-label="WhatsApp Us" aria-label="WhatsApp Us">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.183 8.183 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28z"/>
+        </svg>
+    </a>
+
+    </a>
+</div>

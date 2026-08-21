@@ -1,0 +1,952 @@
+<!-- =========================
+     OUR PROJECTS SECTION
+========================= -->
+
+<style>
+  /* =========================
+     MAIN SECTION
+  ========================= */
+
+  .prj-section {
+    position: relative;
+    padding: 100px 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  }
+
+  .prj-section::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: -250px;
+    left: -250px;
+    border-radius: 50%;
+    background: rgba(23, 104, 211, 0.05);
+    pointer-events: none;
+  }
+
+  .prj-wrap {
+    position: relative;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+
+  /* =========================
+     SECTION HEADING
+  ========================= */
+
+  .prj-intro {
+    max-width: 760px;
+    margin-bottom: 35px;
+  }
+
+  .prj-kicker {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    color: #1768d3;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .prj-kicker::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 48px;
+    height: 3px;
+    border-radius: 10px;
+    background: #1768d3;
+  }
+
+  .prj-heading {
+    margin: 0;
+    color: #102643;
+    font-size: clamp(42px, 5vw, 55px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -2px;
+  }
+
+  .prj-heading-highlight {
+    display: block;
+    color: #1768d3;
+  }
+
+  .prj-description {
+    max-width: 700px;
+    margin: 22px 0 0;
+    color: #617589;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+
+  /* =========================
+     CENTERED SEARCH BAR
+  ========================= */
+
+  .prj-search-bar {
+    width: 88%;
+    max-width: 1150px;
+    margin: 0 auto 45px;
+
+    display: grid;
+    grid-template-columns: 1fr 1.35fr 1.35fr 150px;
+    align-items: center;
+
+    padding: 8px 14px;
+
+    background: #ffffff;
+    border: 1px solid rgba(16, 43, 73, 0.08);
+    border-radius: 45px;
+
+    box-shadow: 0 12px 30px rgba(13, 40, 70, 0.10);
+  }
+
+  .prj-filter {
+    position: relative;
+    padding: 0 18px;
+    border-right: 1px solid #d7dee7;
+  }
+
+  .prj-filter:first-child {
+    padding-left: 20px;
+  }
+
+  .prj-filter:nth-child(3) {
+    border-right: none;
+  }
+
+  .prj-filter label {
+    display: block;
+    margin-bottom: 5px;
+    color: #102b49;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .prj-filter select {
+    width: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #78818c;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .prj-filter select option {
+    color: #102b49;
+    background: #ffffff;
+  }
+
+
+  /* =========================
+     PRICE AND AREA RANGE
+  ========================= */
+
+  .prj-range {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .prj-range input {
+    width: 100%;
+    min-width: 0;
+    padding: 5px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #102b49;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .prj-range input::placeholder {
+    color: #9aa8b6;
+  }
+
+  .prj-range span {
+    color: #9aa8b6;
+    font-weight: 700;
+  }
+
+
+  /* =========================
+     SEARCH BUTTON
+  ========================= */
+
+  .prj-search-btn {
+    width: 100%;
+    min-height: 55px;
+    border: none;
+    border-radius: 35px;
+    background: linear-gradient(135deg, #1768d3, #245fa8);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(23, 104, 211, 0.22);
+  }
+
+  .prj-search-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #095dcc, #1768d3);
+    box-shadow: 0 12px 25px rgba(23, 104, 211, 0.32);
+  }
+
+
+  /* =========================
+     PROJECT GRID
+  ========================= */
+
+  .prj-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .prj-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(13, 40, 70, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(13, 40, 70, 0.10);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .prj-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 24px 50px rgba(13, 40, 70, 0.16);
+  }
+
+  .prj-card.hidden {
+    display: none;
+  }
+
+
+  /* =========================
+     PROJECT IMAGE
+  ========================= */
+
+  .prj-photo {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #eaf3fb;
+  }
+
+  .prj-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .prj-card:hover .prj-photo img {
+    transform: scale(1.08);
+  }
+
+  .prj-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 55%,
+      rgba(5, 30, 55, 0.18) 100%
+    );
+  }
+
+
+  /* =========================
+     STATUS BADGE
+  ========================= */
+
+  .prj-badge {
+    position: absolute;
+    z-index: 2;
+    top: 16px;
+    left: 16px;
+    padding: 9px 17px;
+    border-radius: 30px;
+    background: #123b61;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 6px 18px rgba(5, 31, 58, 0.2);
+  }
+
+  .prj-badge.upcoming {
+    background: #1768d3;
+  }
+
+
+  /* =========================
+     PROJECT CARD BODY
+  ========================= */
+
+  .prj-body {
+    padding: 22px;
+  }
+
+  .prj-body h3 {
+    margin: 0 0 14px;
+    color: #102b49;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .prj-loc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #637589;
+    font-size: 14px;
+  }
+
+  .prj-loc svg {
+    width: 17px;
+    height: 17px;
+    color: #1768d3;
+    flex-shrink: 0;
+  }
+
+  .prj-type {
+    margin-bottom: 20px;
+    color: #637589;
+    font-size: 14px;
+  }
+
+
+  /* =========================
+     VIEW DETAILS
+  ========================= */
+
+  .prj-view {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: 10px;
+    background: #eef6ff;
+    color: #095dcc;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    transition: all 0.25s ease;
+  }
+
+  .prj-view:hover {
+    background: #1768d3;
+    color: #ffffff;
+  }
+
+  .prj-arrow {
+    font-size: 20px;
+    transition: transform 0.25s ease;
+  }
+
+  .prj-view:hover .prj-arrow {
+    transform: translateX(5px);
+  }
+
+
+  /* =========================
+     NO RESULTS
+  ========================= */
+
+  .prj-no-results {
+    display: none;
+    grid-column: 1 / -1;
+    padding: 50px 20px;
+    border-radius: 20px;
+    background: #ffffff;
+    color: #637589;
+    text-align: center;
+    font-size: 18px;
+    box-shadow: 0 12px 35px rgba(13, 40, 70, 0.08);
+  }
+
+  .prj-no-results.show {
+    display: block;
+  }
+
+
+  /* =========================
+     TABLET
+  ========================= */
+
+  @media (max-width: 1100px) {
+
+    .prj-wrap {
+      padding: 0 30px;
+    }
+
+    .prj-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prj-search-bar {
+      width: 100%;
+      max-width: 850px;
+      grid-template-columns: 1fr 1fr;
+      border-radius: 25px;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .prj-filter {
+      padding: 12px 15px;
+      border-right: none;
+      border-bottom: 1px solid #d7dee7;
+    }
+
+    .prj-filter:nth-child(3) {
+      border-bottom: none;
+    }
+
+    .prj-search-btn {
+      min-height: 55px;
+    }
+  }
+
+
+  /* =========================
+     MOBILE
+  ========================= */
+
+  @media (max-width: 700px) {
+
+    .prj-section {
+      padding: 70px 0;
+    }
+
+    .prj-wrap {
+      padding: 0 18px;
+    }
+
+    .prj-intro {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .prj-kicker::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .prj-heading {
+      font-size: 42px;
+      letter-spacing: -1.5px;
+    }
+
+    .prj-description {
+      font-size: 15px;
+    }
+
+    .prj-search-bar {
+      width: 100%;
+      grid-template-columns: 1fr;
+      padding: 10px;
+      border-radius: 25px;
+    }
+
+    .prj-filter,
+    .prj-filter:first-child {
+      padding: 15px;
+      border-right: none;
+      border-bottom: 1px solid #d7dee7;
+    }
+
+    .prj-filter:nth-child(3) {
+      border-bottom: 1px solid #d7dee7;
+    }
+
+    .prj-search-btn {
+      min-height: 55px;
+      margin-top: 4px;
+    }
+
+    .prj-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .prj-photo {
+      height: 220px;
+    }
+  }
+
+</style>
+
+
+<!-- =========================
+     PROJECTS HTML
+========================= -->
+
+<section class="prj-section" id="projects">
+
+  <div class="prj-wrap">
+
+    <!-- SECTION HEADING -->
+    <div class="prj-intro">
+
+      <div class="prj-kicker">
+        OUR PROJECTS
+      </div>
+
+      <h2 class="prj-heading">
+        From Vision to Reality.
+        <span class="prj-heading-highlight">
+          We Build With Purpose.
+        </span>
+      </h2>
+
+      <p class="prj-description">
+        Explore thoughtfully planned projects designed with quality,
+        transparency, and long-term value in mind. Discover the right
+        opportunity for your future.
+      </p>
+
+    </div>
+
+
+    <!-- =========================
+         CENTERED SEARCH BAR
+    ========================= -->
+
+    <div class="prj-search-bar">
+
+      <!-- LOCATION -->
+      <div class="prj-filter">
+
+        <label for="prjLocation">
+          Location
+        </label>
+
+        <select id="prjLocation">
+          <option value="">Select Location</option>
+          <option value="Dapodi">Dapodi, Pune</option>
+          <option value="Pimpri">Pimpri, Pune</option>
+        </select>
+
+      </div>
+
+
+      <!-- PRICE RANGE -->
+      <div class="prj-filter">
+
+        <label>
+          Price Range (₹)
+        </label>
+
+        <div class="prj-range">
+
+          <input
+            type="number"
+            id="prjMinPrice"
+            placeholder="Min Price"
+          >
+
+          <span>—</span>
+
+          <input
+            type="number"
+            id="prjMaxPrice"
+            placeholder="Max Price"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- AREA RANGE -->
+      <div class="prj-filter">
+
+        <label>
+          Area (Sq. Ft.)
+        </label>
+
+        <div class="prj-range">
+
+          <input
+            type="number"
+            id="prjMinArea"
+            placeholder="Min Area"
+          >
+
+          <span>—</span>
+
+          <input
+            type="number"
+            id="prjMaxArea"
+            placeholder="Max Area"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- SEARCH BUTTON -->
+      <button
+        type="button"
+        class="prj-search-btn"
+        onclick="searchProjects()"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         PROJECT CARDS
+    ========================= -->
+
+    <div class="prj-grid" id="prjGrid">
+
+
+      <!-- PROJECT 1 -->
+      <div
+        class="prj-card"
+        data-location="Dapodi"
+        data-price="4500000"
+        data-area="1200"
+      >
+
+        <div class="prj-photo">
+
+          <span class="prj-badge">
+            Ongoing
+          </span>
+
+          <img
+            src="http://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/plot4.jpg"
+            alt="Affinity Greens"
+          >
+
+        </div>
+
+        <div class="prj-body">
+
+          <h3>Affinity Greens</h3>
+
+          <div class="prj-loc">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2">
+
+              <path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/>
+              <circle cx="12" cy="10" r="2.5"/>
+
+            </svg>
+
+            Dapodi, Pune
+
+          </div>
+
+          <div class="prj-type">
+            Plotted Development
+          </div>
+
+          <a href="#" class="prj-view">
+            <span>View Details</span>
+            <span class="prj-arrow">→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROJECT 2 -->
+      <div
+        class="prj-card"
+        data-location="Dapodi"
+        data-price="6500000"
+        data-area="1500"
+      >
+
+        <div class="prj-photo">
+
+          <span class="prj-badge">
+            Ongoing
+          </span>
+
+          <img
+            src="http://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/plot1.jpg"
+            alt="Affinity Heights"
+          >
+
+        </div>
+
+        <div class="prj-body">
+
+          <h3>Affinity Heights</h3>
+
+          <div class="prj-loc">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2">
+
+              <path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/>
+              <circle cx="12" cy="10" r="2.5"/>
+
+            </svg>
+
+            Dapodi, Pune
+
+          </div>
+
+          <div class="prj-type">
+            Residential Project
+          </div>
+
+          <a href="#" class="prj-view">
+            <span>View Details</span>
+            <span class="prj-arrow">→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROJECT 3 -->
+      <div
+        class="prj-card"
+        data-location="Pimpri"
+        data-price="8500000"
+        data-area="2000"
+      >
+
+        <div class="prj-photo">
+
+          <span class="prj-badge upcoming">
+            Upcoming
+          </span>
+
+          <img
+            src="http://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/plot2.jpg"
+            alt="Affinity Square"
+          >
+
+        </div>
+
+        <div class="prj-body">
+
+          <h3>Affinity Square</h3>
+
+          <div class="prj-loc">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2">
+
+              <path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/>
+              <circle cx="12" cy="10" r="2.5"/>
+
+            </svg>
+
+            Pimpri, Pune
+
+          </div>
+
+          <div class="prj-type">
+            Commercial Project
+          </div>
+
+          <a href="#" class="prj-view">
+            <span>View Details</span>
+            <span class="prj-arrow">→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROJECT 4 -->
+      <div
+        class="prj-card"
+        data-location="Dapodi"
+        data-price="5500000"
+        data-area="1350"
+      >
+
+        <div class="prj-photo">
+
+          <span class="prj-badge upcoming">
+            Upcoming
+          </span>
+
+          <img
+            src="http://affinityrealty.orgscale.in/wp-content/uploads/sites/10/2026/08/plot3.jpg"
+            alt="Affinity Courtyard"
+          >
+
+        </div>
+
+        <div class="prj-body">
+
+          <h3>Affinity Courtyard</h3>
+
+          <div class="prj-loc">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2">
+
+              <path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/>
+              <circle cx="12" cy="10" r="2.5"/>
+
+            </svg>
+
+            Dapodi, Pune
+
+          </div>
+
+          <div class="prj-type">
+            Residential Project
+          </div>
+
+          <a href="#" class="prj-view">
+            <span>View Details</span>
+            <span class="prj-arrow">→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- NO RESULTS -->
+      <div
+        class="prj-no-results"
+        id="prjNoResults"
+      >
+        No projects found matching your search.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SEARCH JAVASCRIPT
+========================= -->
+
+<script>
+  function searchProjects() {
+
+    const location =
+      document.getElementById("prjLocation").value;
+
+    const minPrice =
+      Number(document.getElementById("prjMinPrice").value) || 0;
+
+    const maxPrice =
+      Number(document.getElementById("prjMaxPrice").value) || Infinity;
+
+    const minArea =
+      Number(document.getElementById("prjMinArea").value) || 0;
+
+    const maxArea =
+      Number(document.getElementById("prjMaxArea").value) || Infinity;
+
+
+    const cards =
+      document.querySelectorAll(".prj-card");
+
+    const noResults =
+      document.getElementById("prjNoResults");
+
+    let visibleProjects = 0;
+
+
+    cards.forEach(function(card) {
+
+      const projectLocation =
+        card.getAttribute("data-location");
+
+      const projectPrice =
+        Number(card.getAttribute("data-price"));
+
+      const projectArea =
+        Number(card.getAttribute("data-area"));
+
+
+      const locationMatch =
+        location === "" ||
+        projectLocation === location;
+
+
+      const priceMatch =
+        projectPrice >= minPrice &&
+        projectPrice <= maxPrice;
+
+
+      const areaMatch =
+        projectArea >= minArea &&
+        projectArea <= maxArea;
+
+
+      if (
+        locationMatch &&
+        priceMatch &&
+        areaMatch
+      ) {
+
+        card.classList.remove("hidden");
+        visibleProjects++;
+
+      } else {
+
+        card.classList.add("hidden");
+
+      }
+
+    });
+
+
+    if (visibleProjects === 0) {
+      noResults.classList.add("show");
+    } else {
+      noResults.classList.remove("show");
+    }
+
+  }
+</script>
